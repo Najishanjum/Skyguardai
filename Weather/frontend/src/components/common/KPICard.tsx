@@ -21,44 +21,35 @@ export const KPICard: React.FC<KPICardProps> = ({
   trend,
   colorScheme = 'sky'
 }) => {
-  const colorMap = {
-    sky: 'from-sky-500/10 to-sky-500/5 text-sky-600 dark:text-sky-400 border-sky-200 dark:border-sky-800/60',
-    cyan: 'from-cyan-500/10 to-cyan-500/5 text-cyan-600 dark:text-cyan-400 border-cyan-200 dark:border-cyan-800/60',
-    emerald: 'from-emerald-500/10 to-emerald-500/5 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800/60',
-    amber: 'from-amber-500/10 to-amber-500/5 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-800/60',
-    rose: 'from-rose-500/10 to-rose-500/5 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-800/60',
-    purple: 'from-purple-500/10 to-purple-500/5 text-purple-600 dark:text-purple-400 border-purple-200 dark:border-purple-800/60',
-  };
-
   const iconBgMap = {
-    sky: 'bg-sky-100 dark:bg-sky-950/80 text-sky-600 dark:text-sky-400',
-    cyan: 'bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400',
-    emerald: 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400',
-    amber: 'bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400',
-    rose: 'bg-rose-100 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400',
-    purple: 'bg-purple-100 dark:bg-purple-950/80 text-purple-600 dark:text-purple-400',
+    sky: 'bg-[#C8FF2E] text-[#11110F]',
+    cyan: 'bg-[#C8FF2E] text-[#11110F]',
+    emerald: 'bg-[#C8FF2E] text-[#11110F]',
+    amber: 'bg-[#FF5C5C] text-[#11110F]',
+    rose: 'bg-[#FF5C5C] text-[#11110F]',
+    purple: 'bg-[#4057FF] text-[#FFFFFF]',
   };
 
   return (
-    <div className={`p-5 rounded-2xl border skyguard-card bg-gradient-to-br ${colorMap[colorScheme]} transition-all`}>
+    <div className="p-5 bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] hover:translate-x-[-3px] hover:translate-y-[-3px] hover:shadow-[8px_8px_0_#11110F] transition-all duration-200">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          {title}
+        <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#11110F]">
+          // {title}
         </span>
-        <div className={`p-2.5 rounded-xl ${iconBgMap[colorScheme]}`}>
-          <Icon className="w-5 h-5" />
+        <div className={`p-2 border-2 border-[#11110F] shadow-[2px_2px_0_#11110F] ${iconBgMap[colorScheme]}`}>
+          <Icon className="w-5 h-5 stroke-[2.5]" />
         </div>
       </div>
       
-      <div className="mt-3 flex items-baseline gap-2">
-        <span className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white font-mono">
+      <div className="mt-4 flex items-baseline gap-3">
+        <span className="text-4xl font-display uppercase tracking-wider text-[#11110F]">
           {value}
         </span>
         {trend && (
-          <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
+          <span className={`text-xs font-mono font-bold px-2 py-0.5 border-2 border-[#11110F] shadow-[2px_2px_0_#11110F] uppercase ${
             trend.isPositive 
-              ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300' 
-              : 'bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300'
+              ? 'bg-[#C8FF2E] text-[#11110F]' 
+              : 'bg-[#FF5C5C] text-[#11110F]'
           }`}>
             {trend.value}
           </span>
@@ -66,7 +57,7 @@ export const KPICard: React.FC<KPICardProps> = ({
       </div>
 
       {subtitle && (
-        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+        <p className="mt-2 text-xs font-mono text-[#555550] uppercase tracking-wide border-t border-[#11110F]/10 pt-2">
           {subtitle}
         </p>
       )}

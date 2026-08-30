@@ -18,7 +18,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
   const navigationSections = [
     {
-      title: "Real-Time Intelligence",
+      title: "REAL-TIME INTELLIGENCE",
       items: [
         { to: "/dashboard", label: "Executive Dashboard", icon: LayoutDashboard },
         { to: "/live", label: "Live Weather & Stream", icon: Activity },
@@ -27,7 +27,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       ]
     },
     {
-      title: "AI Detection & Verification",
+      title: "AI DETECTION & VERIFICATION",
       items: [
         { to: "/anomalies", label: "Anomaly Center", icon: AlertTriangle },
         { to: "/explain", label: "Explainable AI (XAI)", icon: BrainCircuit },
@@ -36,7 +36,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       ]
     },
     {
-      title: "Sensor Health & Reliability",
+      title: "SENSOR HEALTH & RELIABILITY",
       items: [
         { to: "/health", label: "Sensor Health Matrix", icon: HeartPulse },
         { to: "/maintenance", label: "Predictive Maintenance", icon: Wrench },
@@ -44,7 +44,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       ]
     },
     {
-      title: "Innovation & Governance",
+      title: "INNOVATION & GOVERNANCE",
       items: [
         { to: "/demo", label: "Guided SIH Demo", icon: PlayCircle, badge: "1-Click" },
         { to: "/simulation", label: "AI Simulation Lab", icon: FlaskConical },
@@ -61,23 +61,23 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       {isOpen && (
         <div 
           onClick={onClose}
-          className="fixed inset-0 z-40 bg-slate-900/60 backdrop-blur-sm lg:hidden transition-opacity"
+          className="fixed inset-0 z-40 bg-[#11110F]/60 lg:hidden transition-opacity"
         />
       )}
 
       {/* Sidebar Navigation */}
       <aside
-        className={`fixed lg:sticky top-16 left-0 z-40 h-[calc(100vh-4rem)] w-64 flex-shrink-0 flex flex-col justify-between border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-y-auto transition-transform duration-300 ease-in-out ${
+        className={`fixed lg:sticky top-20 left-0 z-40 h-[calc(100vh-5rem)] w-64 flex-shrink-0 flex flex-col justify-between border-r-2 border-[#11110F] bg-[#F4F1E8] overflow-y-auto transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
-        <div className="py-4 px-3 space-y-6">
+        <div className="py-5 px-3 space-y-6">
           {navigationSections.map((section, idx) => (
-            <div key={idx} className="space-y-1">
-              <h3 className="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                {section.title}
+            <div key={idx} className="space-y-1.5">
+              <h3 className="px-3 text-[11px] font-mono font-bold uppercase tracking-wider text-[#11110F]/70 border-b border-[#11110F]/20 pb-1">
+                // {section.title}
               </h3>
-              <div className="space-y-0.5 pt-1">
+              <div className="space-y-1 pt-1">
                 {section.items.map((item) => {
                   const Icon = item.icon;
                   return (
@@ -86,19 +86,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                       to={item.to}
                       onClick={onClose}
                       className={({ isActive }) =>
-                        `flex items-center justify-between px-3 py-2 text-xs font-medium rounded-lg transition-colors ${
+                        `flex items-center justify-between px-3 py-2 text-xs font-mono font-bold uppercase transition-all ${
                           isActive
-                            ? 'bg-sky-50 dark:bg-slate-800 text-sky-600 dark:text-cyan-400 font-semibold border-l-4 border-sky-500 dark:border-cyan-400'
-                            : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-slate-200'
+                            ? 'bg-[#C8FF2E] text-[#11110F] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] translate-y-[-1px]'
+                            : 'text-[#11110F] border-2 border-transparent hover:border-[#11110F] hover:bg-[#FFFFFF] hover:translate-y-[-1px]'
                         }`
                       }
                     >
                       <div className="flex items-center gap-2.5">
-                        <Icon className="w-4 h-4" />
+                        <Icon className="w-4 h-4 text-[#11110F]" />
                         <span>{item.label}</span>
                       </div>
                       {item.badge && (
-                        <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-400 border border-cyan-300 dark:border-cyan-800">
+                        <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 bg-[#FF5C5C] text-[#11110F] border border-[#11110F] shadow-[1px_1px_0_#11110F] uppercase">
                           {item.badge}
                         </span>
                       )}
@@ -111,13 +111,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* Bottom Organization Badge */}
-        <div className="p-3 m-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-center">
-          <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-sky-600 dark:text-cyan-400">
-            <ShieldAlert className="w-4 h-4" />
+        <div className="p-3 m-3 bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] text-center">
+          <div className="flex items-center justify-center gap-1.5 text-xs font-mono font-bold text-[#11110F] uppercase">
+            <ShieldAlert className="w-4 h-4 text-[#FF5C5C]" />
             <span>SIH 2026 #SIH26073</span>
           </div>
-          <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
-            Ministry of Earth Sciences (MoES)
+          <p className="text-[10px] font-mono text-[#555550] mt-0.5 uppercase">
+            Ministry of Earth Sciences
           </p>
         </div>
       </aside>

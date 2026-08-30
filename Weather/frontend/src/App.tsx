@@ -36,10 +36,10 @@ const AppLayout: React.FC = () => {
   const isLanding = location.pathname === '/';
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors">
+    <div className="min-h-screen flex flex-col bg-[#F4F1E8] text-[#11110F] font-sans relative selection:bg-[#C8FF2E] selection:text-[#11110F]">
       <Navbar onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
       
-      <div className="flex-1 flex w-full">
+      <div className="flex-1 flex w-full relative z-10">
         {!isLanding && (
           <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         )}

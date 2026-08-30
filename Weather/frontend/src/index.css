@@ -5,111 +5,249 @@
 
 @layer base {
   :root {
-    --bg-main: #F8FAFC;
+    --color-bg: #F4F1E8;
+    --color-black: #11110F;
+    --color-lime: #C8FF2E;
+    --color-coral: #FF5C5C;
+    --color-blue: #4057FF;
+    --color-white: #FFFFFF;
+
+    --border: 2px solid #11110F;
+    --shadow: 5px 5px 0 #11110F;
+    --shadow-lg: 7px 7px 0 #11110F;
+    --shadow-sm: 3px 3px 0 #11110F;
+
+    --font-display: 'Anton', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+
+    /* Theme mappings */
+    --bg-main: #F4F1E8;
     --card-bg: #FFFFFF;
-    --card-border: #E2E8F0;
-    --text-main: #0F172A;
-    --text-muted: #64748B;
-    --primary-accent: #0EA5E9;
-    --primary-hover: #0284C7;
+    --card-border: #11110F;
+    --text-main: #11110F;
+    --text-muted: #555550;
+    --primary-accent: #C8FF2E;
+    --primary-hover: #11110F;
   }
 
+  /* Keep high contrast even in dark mode class for consistent Neo-Brutalist look */
   .dark {
-    --bg-main: #0F172A;
-    --card-bg: #1E293B;
-    --card-border: #334155;
-    --text-main: #F8FAFC;
-    --text-muted: #94A3B8;
-    --primary-accent: #00F0FF;
-    --primary-hover: #38BDF8;
+    --bg-main: #F4F1E8;
+    --card-bg: #FFFFFF;
+    --card-border: #11110F;
+    --text-main: #11110F;
+    --text-muted: #555550;
+    --primary-accent: #C8FF2E;
+    --primary-hover: #11110F;
   }
 
   body {
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #F4F1E8;
+    background-image: radial-gradient(#11110F 0.8px, transparent 0.8px);
+    background-size: 24px 24px;
+    color: #11110F;
+    font-family: 'Inter', sans-serif;
     overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: 'Anton', sans-serif;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
   }
 }
 
-/* Custom meteorological glassmorphism cards */
+/* Neo-Brutalist Utility Classes */
+.brutal-border {
+  border: 2px solid #11110F;
+}
+
+.brutal-shadow {
+  box-shadow: 5px 5px 0 #11110F;
+}
+
+.brutal-shadow-lg {
+  box-shadow: 7px 7px 0 #11110F;
+}
+
+.brutal-shadow-sm {
+  box-shadow: 3px 3px 0 #11110F;
+}
+
+.brutal-card {
+  background-color: #FFFFFF;
+  border: 2px solid #11110F;
+  box-shadow: 5px 5px 0 #11110F;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.brutal-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0 #11110F;
+}
+
+.brutal-card-paper {
+  background-color: #F4F1E8;
+  border: 2px solid #11110F;
+  box-shadow: 5px 5px 0 #11110F;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.brutal-card-paper:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0 #11110F;
+}
+
+/* Buttons */
+.brutal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  border: 2px solid #11110F;
+  box-shadow: 5px 5px 0 #11110F;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.brutal-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 #11110F;
+}
+
+.brutal-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #11110F;
+}
+
+.brutal-btn-primary {
+  background-color: #11110F;
+  color: #FFFFFF;
+}
+
+.brutal-btn-secondary {
+  background-color: #C8FF2E;
+  color: #11110F;
+}
+
+.brutal-btn-tertiary {
+  background-color: #F4F1E8;
+  color: #11110F;
+}
+
+.brutal-btn-coral {
+  background-color: #FF5C5C;
+  color: #11110F;
+}
+
+/* Badges / Tags */
+.brutal-badge {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 2px solid #11110F;
+  background-color: #FFFFFF;
+  color: #11110F;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.brutal-badge-lime {
+  background-color: #C8FF2E;
+  color: #11110F;
+}
+
+.brutal-badge-coral {
+  background-color: #FF5C5C;
+  color: #11110F;
+}
+
+.brutal-badge-blue {
+  background-color: #4057FF;
+  color: #FFFFFF;
+}
+
+/* Inputs & Forms */
+.brutal-input {
+  background-color: #FFFFFF;
+  border: 2px solid #11110F;
+  color: #11110F;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  padding: 10px 14px;
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
+}
+
+.brutal-input:focus {
+  background-color: #C8FF2E;
+  border-color: #11110F;
+  outline: none;
+}
+
+/* Compatibility overrides for existing skyguard-card class */
 .skyguard-card {
-  background-color: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  transition: all 0.2s ease-in-out;
+  background-color: #FFFFFF;
+  border: 2px solid #11110F;
+  box-shadow: 5px 5px 0 #11110F;
+  border-radius: 2px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .skyguard-card:hover {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0 #11110F;
 }
 
 .dark .skyguard-card {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  background-color: #FFFFFF;
+  border: 2px solid #11110F;
+  box-shadow: 5px 5px 0 #11110F;
 }
 
 .dark .skyguard-card:hover {
-  border-color: rgba(0, 240, 255, 0.3);
-  box-shadow: 0 10px 25px -3px rgba(0, 240, 255, 0.1);
+  transform: translate(-3px, -3px);
+  box-shadow: 8px 8px 0 #11110F;
 }
 
 /* Pulse badges */
 .badge-pulse-green {
-  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-  animation: pulse-green 2s infinite;
-}
-
-@keyframes pulse-green {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-  }
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
-  }
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-  }
+  border: 2px solid #11110F;
+  background-color: #C8FF2E;
+  color: #11110F;
 }
 
 .badge-pulse-red {
-  box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-  animation: pulse-red 1.5s infinite;
+  border: 2px solid #11110F;
+  background-color: #FF5C5C;
+  color: #11110F;
 }
 
-@keyframes pulse-red {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-  }
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
-  }
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
-  }
-}
-
-/* Custom sleek scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #F4F1E8;
+  border-left: 2px solid #11110F;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #64748B;
-  border-radius: 4px;
+  background: #11110F;
+  border: 1px solid #11110F;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0EA5E9;
+  background: #C8FF2E;
 }

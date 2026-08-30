@@ -1,59 +1,58 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  ShieldCheck, Activity, BrainCircuit, Sparkles, Fingerprint, 
-  ArrowRight, CheckCircle2, Radio, PlayCircle, MapPin, 
-  Thermometer, Gauge, Droplets, Clock, AlertTriangle, Layers
+  ShieldCheck, Activity, Sparkles, Fingerprint, 
+  ArrowRight, Radio, PlayCircle,
+  Thermometer, Gauge, Droplets, Clock
 } from 'lucide-react';
 import { api } from '../services/api';
 import { LiveWeatherCardData } from '../types';
-import { StatusBadge } from '../components/common/StatusBadge';
 import { TrustMeter } from '../components/common/TrustMeter';
 
 export const LandingPage: React.FC = () => {
   const [liveCards, setLiveCards] = useState<LiveWeatherCardData[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     api.getLiveCards()
       .then((data) => {
         setLiveCards(data);
-        setLoading(false);
       })
       .catch((err) => {
         console.error("Failed to load landing live cards", err);
-        setLoading(false);
       });
   }, []);
 
   const featuredCard = liveCards[0];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors">
+    <div className="min-h-screen bg-[#F4F1E8] text-[#11110F] font-sans relative overflow-hidden">
       
+      {/* Decorative Geometric Elements */}
+      <div className="absolute top-12 left-8 text-xl font-mono text-[#11110F]/20 select-none pointer-events-none">+ + +</div>
+      <div className="absolute top-48 right-12 text-2xl font-mono text-[#11110F]/20 select-none pointer-events-none">+ + +</div>
+      <div className="absolute bottom-24 left-1/4 w-16 h-16 border-2 border-[#11110F]/10 rotate-12 select-none pointer-events-none" />
+
       {/* 1. Hero Section */}
-      <section className="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-28 border-b border-slate-200 dark:border-slate-800">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(14,165,233,0.15),rgba(255,255,255,0))] dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(0,240,255,0.15),rgba(15,23,42,0))]" />
-        
+      <section className="relative pt-12 pb-16 md:pt-16 md:pb-24 border-b-2 border-[#11110F]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto">
+          <div className="text-center max-w-4xl mx-auto">
             
             {/* Hackathon Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-sky-100 dark:bg-sky-950/80 text-sky-700 dark:text-cyan-400 border border-sky-200 dark:border-cyan-800/80 mb-6">
-              <Radio className="w-3.5 h-3.5 text-sky-500 animate-pulse" />
-              <span>Smart India Hackathon 2026 • MoES / IMD • SIH26073</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 font-mono text-xs font-bold uppercase bg-[#C8FF2E] text-[#11110F] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] mb-6">
+              <Radio className="w-4 h-4 text-[#11110F] animate-pulse" />
+              <span>SIH 2026 • MoES / IMD • PROBLEM SIH26073</span>
             </div>
 
             {/* Main Title */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
-              SKYGUARD <span className="bg-gradient-to-r from-sky-500 to-cyan-400 bg-clip-text text-transparent">AI</span>
+            <h1 className="text-6xl sm:text-7xl lg:text-9xl font-display uppercase tracking-tight text-[#11110F] leading-none">
+              SKYGUARD <span className="bg-[#C8FF2E] px-3 border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] inline-block rotate-[-1deg]">AI</span>
             </h1>
             
-            <p className="mt-3 text-lg sm:text-xl font-semibold text-slate-700 dark:text-slate-300">
-              "From Raw Weather Data to Trusted Weather Intelligence"
+            <p className="mt-6 text-lg sm:text-2xl font-mono font-bold text-[#11110F] uppercase tracking-wide">
+              "FROM RAW WEATHER DATA TO TRUSTED WEATHER INTELLIGENCE"
             </p>
 
-            <p className="mt-4 text-sm sm:text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            <p className="mt-4 text-base sm:text-lg font-sans font-medium text-[#11110F]/80 max-w-3xl mx-auto leading-relaxed">
               AI-powered real-time anomaly detection, multi-observation evidence verification, 
               consensus-based self-healing, and meteorological trust scoring for Automatic Weather Stations (AWS).
             </p>
@@ -62,89 +61,89 @@ export const LandingPage: React.FC = () => {
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Link
                 to="/dashboard"
-                className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm bg-sky-500 hover:bg-sky-600 text-white shadow-lg shadow-sky-500/25 transition-all"
+                className="brutal-btn brutal-btn-primary text-sm px-6 py-3"
               >
-                <span>Launch Dashboard</span>
+                <span>LAUNCH DASHBOARD</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
 
               <Link
                 to="/demo"
-                className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-cyan-500 to-sky-600 hover:brightness-110 text-white shadow-lg shadow-cyan-500/20 transition-all"
+                className="brutal-btn brutal-btn-secondary text-sm px-6 py-3"
               >
                 <PlayCircle className="w-4 h-4" />
-                <span>1-Click SIH Guided Demo</span>
+                <span>1-CLICK SIH DEMO</span>
               </Link>
 
               <Link
                 to="/live"
-                className="flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-sky-400 dark:hover:border-cyan-400 text-slate-800 dark:text-slate-200 transition-all"
+                className="brutal-btn brutal-btn-tertiary text-sm px-6 py-3"
               >
-                <Activity className="w-4 h-4 text-sky-500" />
-                <span>Explore Live Weather</span>
+                <Activity className="w-4 h-4 text-[#11110F]" />
+                <span>EXPLORE LIVE STREAM</span>
               </Link>
             </div>
           </div>
 
-          {/* Real-time Hero Weather Card (Fetched from Open-Meteo) */}
+          {/* Real-time Hero Weather Card */}
           {featuredCard && (
-            <div className="mt-14 max-w-4xl mx-auto skyguard-card p-6 border rounded-2xl relative overflow-hidden">
-              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
+            <div className="mt-14 max-w-4xl mx-auto bg-[#FFFFFF] border-2 border-[#11110F] p-6 shadow-[7px_7px_0_#11110F] relative">
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-[#11110F] pb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 rounded-full bg-emerald-500 animate-ping" />
+                  <div className="w-3.5 h-3.5 bg-[#C8FF2E] border border-[#11110F] animate-pulse" />
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-base text-slate-900 dark:text-white">
+                      <span className="font-display text-xl tracking-wider text-[#11110F]">
                         {featuredCard.station_name}
                       </span>
-                      <span className="text-xs px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-semibold">
+                      <span className="font-mono text-[11px] font-bold px-2 py-0.5 bg-[#C8FF2E] text-[#11110F] border border-[#11110F] uppercase">
                         LIVE OPEN-METEO STREAM
                       </span>
                     </div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
-                      Latitude: {featuredCard.latitude}°N | Longitude: {featuredCard.longitude}°E
+                    <p className="font-mono text-xs text-[#555550] uppercase mt-0.5">
+                      LAT: {featuredCard.latitude}°N | LON: {featuredCard.longitude}°E
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs">
-                  <Clock className="w-3.5 h-3.5 text-slate-400" />
-                  <span className="text-slate-500">Data Age: {featuredCard.data_age_seconds}s</span>
+                <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#11110F] uppercase">
+                  <Clock className="w-4 h-4 text-[#11110F]" />
+                  <span>DATA AGE: {featuredCard.data_age_seconds}S</span>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6 items-center">
-                <div className="text-center md:text-left">
-                  <span className="text-xs font-bold text-slate-400 uppercase">Temperature</span>
-                  <div className="flex items-center justify-center md:justify-start gap-2 mt-1">
-                    <Thermometer className="w-6 h-6 text-amber-500" />
-                    <span className="text-3xl font-extrabold font-mono text-slate-900 dark:text-white">
+                <div className="p-3 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F]">
+                  <span className="font-mono text-xs font-bold text-[#555550] uppercase">// TEMPERATURE</span>
+                  <div className="flex items-center gap-2 mt-1">
+                    <Thermometer className="w-6 h-6 text-[#11110F]" />
+                    <span className="text-3xl font-display text-[#11110F]">
                       {featuredCard.temperature !== null ? `${featuredCard.temperature}°C` : "--"}
                     </span>
                   </div>
                 </div>
 
-                <div className="text-center md:text-left">
-                  <span className="text-xs font-bold text-slate-400 uppercase">Atm. Pressure</span>
-                  <div className="flex items-center justify-center md:justify-start gap-2 mt-1">
-                    <Gauge className="w-6 h-6 text-sky-500" />
-                    <span className="text-3xl font-extrabold font-mono text-slate-900 dark:text-white">
+                <div className="p-3 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F]">
+                  <span className="font-mono text-xs font-bold text-[#555550] uppercase">// PRESSURE</span>
+                  <div className="flex items-center gap-2 mt-1">
+                    <Gauge className="w-6 h-6 text-[#11110F]" />
+                    <span className="text-3xl font-display text-[#11110F]">
                       {featuredCard.pressure !== null ? `${featuredCard.pressure} hPa` : "--"}
                     </span>
                   </div>
                 </div>
 
-                <div className="text-center md:text-left">
-                  <span className="text-xs font-bold text-slate-400 uppercase">Relative Humidity</span>
-                  <div className="flex items-center justify-center md:justify-start gap-2 mt-1">
-                    <Droplets className="w-6 h-6 text-cyan-500" />
-                    <span className="text-3xl font-extrabold font-mono text-slate-900 dark:text-white">
+                <div className="p-3 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F]">
+                  <span className="font-mono text-xs font-bold text-[#555550] uppercase">// HUMIDITY</span>
+                  <div className="flex items-center gap-2 mt-1">
+                    <Droplets className="w-6 h-6 text-[#11110F]" />
+                    <span className="text-3xl font-display text-[#11110F]">
                       {featuredCard.humidity !== null ? `${featuredCard.humidity}%` : "--"}
                     </span>
                   </div>
                 </div>
 
-                <div className="flex flex-col items-center justify-center border-t md:border-t-0 md:border-l border-slate-100 dark:border-slate-800 pt-4 md:pt-0">
+                <div className="flex flex-col items-center justify-center p-2 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F]">
                   <TrustMeter score={featuredCard.trust_score} size="sm" />
                 </div>
               </div>
@@ -156,62 +155,62 @@ export const LandingPage: React.FC = () => {
       {/* 2. Four Flagship Innovations (USPs) */}
       <section className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-sky-600 dark:text-cyan-400">
-            Pioneering Innovations
+          <span className="font-mono text-xs font-bold uppercase tracking-widest px-3 py-1 bg-[#FF5C5C] text-[#11110F] border-2 border-[#11110F] shadow-[2px_2px_0_#11110F]">
+            PIONEERING INNOVATIONS
+          </span>
+          <h2 className="mt-4 text-4xl sm:text-5xl font-display uppercase tracking-tight text-[#11110F]">
+            BEYOND SIMPLE ANOMALY DETECTION
           </h2>
-          <p className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-white">
-            Beyond Simple Anomaly Detection
-          </p>
-          <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
+          <p className="mt-3 text-sm font-sans font-medium text-[#11110F]/80">
             SkyGuard AI introduces a scientifically responsible, multi-stage meteorological reliability framework.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* USP 1 */}
-          <div className="skyguard-card p-6 rounded-2xl border transition-all hover:-translate-y-1">
-            <div className="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-cyan-400 flex items-center justify-center mb-4">
-              <ShieldCheck className="w-6 h-6" />
+          <div className="brutal-card p-6">
+            <div className="w-12 h-12 bg-[#C8FF2E] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] flex items-center justify-center mb-4">
+              <ShieldCheck className="w-6 h-6 text-[#11110F]" />
             </div>
-            <div className="text-xs font-bold text-sky-600 dark:text-cyan-400 uppercase tracking-wider">USP 1</div>
-            <h3 className="text-base font-bold mt-1 text-slate-900 dark:text-white">Weather Trust Score</h3>
-            <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+            <div className="font-mono text-xs font-bold text-[#11110F] uppercase">USP 1 // TRUST SCORE</div>
+            <h3 className="text-2xl font-display tracking-wider mt-1 text-[#11110F]">WEATHER TRUST SCORE</h3>
+            <p className="text-xs font-sans text-[#11110F]/80 mt-2 leading-relaxed font-medium">
               Composite credibility metric (0–100) factoring QC validity, temporal stability, thermodynamic coupling, and sensor degradation.
             </p>
           </div>
 
           {/* USP 2 */}
-          <div className="skyguard-card p-6 rounded-2xl border transition-all hover:-translate-y-1">
-            <div className="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-4">
-              <Activity className="w-6 h-6" />
+          <div className="brutal-card p-6">
+            <div className="w-12 h-12 bg-[#FF5C5C] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] flex items-center justify-center mb-4">
+              <Activity className="w-6 h-6 text-[#11110F]" />
             </div>
-            <div className="text-xs font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">USP 2</div>
-            <h3 className="text-base font-bold mt-1 text-slate-900 dark:text-white">Adaptive Verification</h3>
-            <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+            <div className="font-mono text-xs font-bold text-[#11110F] uppercase">USP 2 // VERIFICATION</div>
+            <h3 className="text-2xl font-display tracking-wider mt-1 text-[#11110F]">ADAPTIVE VERIFICATION</h3>
+            <p className="text-xs font-sans text-[#11110F]/80 mt-2 leading-relaxed font-medium">
               Multi-cycle verification window that distinguishes genuine atmospheric squalls/fronts from isolated hardware sensor glitches.
             </p>
           </div>
 
           {/* USP 3 */}
-          <div className="skyguard-card p-6 rounded-2xl border transition-all hover:-translate-y-1">
-            <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
-              <Sparkles className="w-6 h-6" />
+          <div className="brutal-card p-6">
+            <div className="w-12 h-12 bg-[#C8FF2E] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] flex items-center justify-center mb-4">
+              <Sparkles className="w-6 h-6 text-[#11110F]" />
             </div>
-            <div className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">USP 3</div>
-            <h3 className="text-base font-bold mt-1 text-slate-900 dark:text-white">Consensus Self-Healing</h3>
-            <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+            <div className="font-mono text-xs font-bold text-[#11110F] uppercase">USP 3 // SELF-HEALING</div>
+            <h3 className="text-2xl font-display tracking-wider mt-1 text-[#11110F]">CONSENSUS SELF-HEALING</h3>
+            <p className="text-xs font-sans text-[#11110F]/80 mt-2 leading-relaxed font-medium">
               Tri-model agreement (Temporal, Diurnal, Multivariate) auto-recovers faulty readings ONLY when models agree, never overwriting raw values.
             </p>
           </div>
 
           {/* USP 4 */}
-          <div className="skyguard-card p-6 rounded-2xl border transition-all hover:-translate-y-1">
-            <div className="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-950 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-4">
-              <Fingerprint className="w-6 h-6" />
+          <div className="brutal-card p-6">
+            <div className="w-12 h-12 bg-[#4057FF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] flex items-center justify-center mb-4">
+              <Fingerprint className="w-6 h-6 text-[#FFFFFF]" />
             </div>
-            <div className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">USP 4</div>
-            <h3 className="text-base font-bold mt-1 text-slate-900 dark:text-white">Fault Fingerprint Memory</h3>
-            <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+            <div className="font-mono text-xs font-bold text-[#11110F] uppercase">USP 4 // MEMORY ENGINE</div>
+            <h3 className="text-2xl font-display tracking-wider mt-1 text-[#11110F]">FAULT FINGERPRINTING</h3>
+            <p className="text-xs font-sans text-[#11110F]/80 mt-2 leading-relaxed font-medium">
               Vectorized failure signature extraction with Cosine similarity matching against historical sensor failure profiles.
             </p>
           </div>
@@ -219,28 +218,28 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* 3. Scientific Workflow Pipeline */}
-      <section className="py-16 bg-white dark:bg-slate-900/60 border-y border-slate-200 dark:border-slate-800">
+      <section className="py-16 bg-[#FFFFFF] border-y-2 border-[#11110F]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-sky-600 dark:text-cyan-400">
-              End-to-End Pipeline
+            <span className="font-mono text-xs font-bold uppercase tracking-widest px-3 py-1 bg-[#C8FF2E] text-[#11110F] border-2 border-[#11110F]">
+              END-TO-END PIPELINE
+            </span>
+            <h2 className="mt-3 text-4xl font-display uppercase tracking-tight text-[#11110F]">
+              THE 13-STAGE METEOROLOGICAL INTELLIGENCE CHAIN
             </h2>
-            <p className="mt-2 text-2xl font-extrabold text-slate-900 dark:text-white">
-              The 13-Stage Meteorological Intelligence Chain
-            </p>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs font-mono">
+          <div className="flex flex-wrap items-center justify-center gap-3 font-mono text-xs">
             {[
-              "Raw Ingest", "Data QC", "Feature Eng", "Hybrid ML", "Fusion",
-              "Verification", "Trust Score", "Diagnosis", "Fingerprint", "Health",
-              "Consensus Healing", "XAI", "Audit Ledger"
+              "RAW INGEST", "DATA QC", "FEATURE ENG", "HYBRID ML", "FUSION",
+              "VERIFICATION", "TRUST SCORE", "DIAGNOSIS", "FINGERPRINT", "HEALTH",
+              "CONSENSUS HEALING", "XAI", "AUDIT LEDGER"
             ].map((step, idx) => (
               <React.Fragment key={idx}>
-                <div className="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-bold">
+                <div className="px-3 py-2 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] text-[#11110F] font-bold">
                   {idx + 1}. {step}
                 </div>
-                {idx < 12 && <ArrowRight className="w-4 h-4 text-sky-500 hidden md:block" />}
+                {idx < 12 && <ArrowRight className="w-4 h-4 text-[#11110F] hidden md:block" />}
               </React.Fragment>
             ))}
           </div>
