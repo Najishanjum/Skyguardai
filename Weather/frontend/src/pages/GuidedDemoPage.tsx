@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  PlayCircle, CheckCircle2, ArrowRight, Sparkles, ShieldCheck, 
-  AlertTriangle, RefreshCw, Layers, Fingerprint, HeartPulse, FileText 
+  PlayCircle, CheckCircle2, ArrowRight, Sparkles, 
+  RefreshCw, Video
 } from 'lucide-react';
-import { api } from '../services/api';
 import { StatusBadge } from '../components/common/StatusBadge';
 import { TrustMeter } from '../components/common/TrustMeter';
 import confetti from 'canvas-confetti';
@@ -59,7 +58,6 @@ export const GuidedDemoPage: React.FC = () => {
     setCurrentStep(next);
 
     if (next === 1) {
-      // Step 2: Inject Spike
       setDemoState({
         temp: 75.2,
         pres: 1008.4,
@@ -74,7 +72,6 @@ export const GuidedDemoPage: React.FC = () => {
         evidenceSteps: ["Initial severe thermal divergence (+44.0°C) without barometric coupling."]
       });
     } else if (next === 2) {
-      // Step 3: Anomaly Detected & Under Verification
       setDemoState((prev: any) => ({
         ...prev,
         evidenceSteps: [
@@ -83,7 +80,6 @@ export const GuidedDemoPage: React.FC = () => {
         ]
       }));
     } else if (next === 3) {
-      // Step 4: Confirmed Sensor Anomaly
       setDemoState((prev: any) => ({
         ...prev,
         status: 'CONFIRMED_ANOMALY',
@@ -94,7 +90,6 @@ export const GuidedDemoPage: React.FC = () => {
         ]
       }));
     } else if (next === 4) {
-      // Step 5: Fingerprint Match
       setDemoState((prev: any) => ({
         ...prev,
         fingerprintMatch: {
@@ -105,7 +100,6 @@ export const GuidedDemoPage: React.FC = () => {
         }
       }));
     } else if (next === 5) {
-      // Step 6: Self-Healing & Confetti
       setDemoState((prev: any) => ({
         ...prev,
         consensusEstimate: {
@@ -144,54 +138,83 @@ export const GuidedDemoPage: React.FC = () => {
     <div className="space-y-6 pb-12">
       
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-[#11110F] pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              Guided SIH 2026 Interactive Demonstration
+            <h1 className="text-4xl sm:text-5xl font-display uppercase tracking-tight text-[#11110F]">
+              GUIDED SIH DEMONSTRATION
             </h1>
-            <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-gradient-to-r from-sky-500 to-cyan-500 text-white shadow-sm">
-              Judge Evaluation Mode
+            <span className="font-mono text-xs font-bold px-2.5 py-1 bg-[#FF5C5C] text-[#11110F] border-2 border-[#11110F] shadow-[2px_2px_0_#11110F] uppercase">
+              JUDGE EVALUATION
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="font-mono text-xs text-[#555550] uppercase mt-1">
             One-click interactive guided narrative demonstrating the complete 13-stage intelligent weather trust & recovery pipeline.
           </p>
         </div>
 
         <button
           onClick={handleReset}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 transition-all"
+          className="brutal-btn brutal-btn-tertiary text-xs py-2"
         >
           <RefreshCw className="w-3.5 h-3.5" />
-          <span>Reset Script</span>
+          <span>RESET SCRIPT</span>
         </button>
       </div>
 
+      {/* Video Demonstration Showcase Section */}
+      <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[7px_7px_0_#11110F] p-5">
+        <div className="flex items-center justify-between border-b-2 border-[#11110F] pb-3 mb-4">
+          <div className="flex items-center gap-2">
+            <Video className="w-5 h-5 text-[#11110F]" />
+            <h2 className="font-display text-2xl uppercase tracking-wider text-[#11110F]">
+              SKYGUARD AI DEMONSTRATION VIDEO
+            </h2>
+          </div>
+          <span className="font-mono text-xs font-bold px-2.5 py-1 bg-[#C8FF2E] text-[#11110F] border border-[#11110F] uppercase">
+            HD MP4 WALKTHROUGH
+          </span>
+        </div>
+
+        <div className="relative bg-[#11110F] border-2 border-[#11110F] overflow-hidden">
+          <video 
+            src="/Skyguard.mp4" 
+            controls 
+            autoPlay={false}
+            loop={false}
+            muted={false}
+            poster=""
+            className="w-full h-auto max-h-[500px] mx-auto object-contain"
+          >
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
       {/* Stepper Progress Bar */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         {steps.map((s, idx) => (
           <div
             key={idx}
-            className={`p-3 rounded-xl border text-xs transition-all ${
+            className={`p-3 border-2 border-[#11110F] text-xs font-mono transition-all ${
               currentStep === idx
-                ? 'bg-sky-50 dark:bg-sky-950/50 border-sky-500 dark:border-cyan-400 shadow-md'
+                ? 'bg-[#C8FF2E] text-[#11110F] shadow-[4px_4px_0_#11110F] font-bold'
                 : currentStep > idx
-                ? 'bg-slate-50 dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 text-slate-400'
-                : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 opacity-60'
+                ? 'bg-[#FFFFFF] text-[#11110F] shadow-[2px_2px_0_#11110F]'
+                : 'bg-[#F4F1E8] text-[#555550] opacity-70'
             }`}
           >
-            <div className="flex items-center gap-1.5 font-bold mb-1">
+            <div className="flex items-center gap-1.5 font-bold mb-1 uppercase">
               {currentStep > idx ? (
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                <CheckCircle2 className="w-4 h-4 text-[#11110F]" />
               ) : (
-                <span className="w-4 h-4 rounded-full bg-sky-500 text-white flex items-center justify-center text-[10px]">
+                <span className="w-4 h-4 bg-[#11110F] text-white flex items-center justify-center text-[10px] font-bold">
                   {idx + 1}
                 </span>
               )}
-              <span className="truncate">Stage {idx + 1}</span>
+              <span className="truncate">STAGE {idx + 1}</span>
             </div>
-            <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 block truncate">
+            <span className="text-[11px] font-bold uppercase block truncate">
               {s.title.split('.')[1]}
             </span>
           </div>
@@ -199,18 +222,18 @@ export const GuidedDemoPage: React.FC = () => {
       </div>
 
       {/* Current Step Narrative Card */}
-      <div className="skyguard-card p-6 border-2 border-sky-500/80 dark:border-cyan-400/80 rounded-2xl bg-gradient-to-br from-sky-500/5 to-cyan-500/5 space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-sky-500" />
+      <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] p-6 space-y-4">
+        <div className="flex items-center justify-between border-b-2 border-[#11110F] pb-3">
+          <h2 className="text-xl font-display uppercase tracking-wider text-[#11110F] flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-[#11110F]" />
             <span>{steps[currentStep]?.title}</span>
           </h2>
-          <span className="text-xs font-mono font-bold text-sky-600 dark:text-cyan-400">
-            Step {currentStep + 1} of 6
+          <span className="font-mono text-xs font-bold bg-[#C8FF2E] px-2 py-0.5 border border-[#11110F]">
+            STEP {currentStep + 1} OF 6
           </span>
         </div>
 
-        <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+        <p className="font-sans text-sm text-[#11110F] leading-relaxed font-medium">
           {steps[currentStep]?.desc}
         </p>
 
@@ -219,9 +242,9 @@ export const GuidedDemoPage: React.FC = () => {
             <button
               onClick={handleNextStep}
               disabled={runningStep}
-              className="flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-sky-500 to-cyan-500 hover:brightness-110 text-white shadow-md shadow-sky-500/25 transition-all"
+              className="brutal-btn brutal-btn-secondary text-xs px-5 py-2.5"
             >
-              <span>Execute Next Stage ({currentStep + 2}/6)</span>
+              <span>EXECUTE NEXT STAGE ({currentStep + 2}/6)</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -229,23 +252,23 @@ export const GuidedDemoPage: React.FC = () => {
       </div>
 
       {/* Live State Visualizer Dashboard */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 font-mono">
         
         {/* Telemetry */}
-        <div className="skyguard-card p-4 border rounded-2xl text-center">
-          <span className="text-[10px] font-bold text-slate-400 uppercase">Live Temperature</span>
-          <span className={`block text-3xl font-extrabold font-mono mt-1 ${demoState.temp > 50 ? 'text-rose-500 animate-pulse' : 'text-slate-900 dark:text-white'}`}>
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-4 text-center">
+          <span className="text-[10px] font-bold text-[#555550] uppercase">// LIVE TEMP</span>
+          <span className={`block text-3xl font-display mt-1 ${demoState.temp > 50 ? 'text-[#FF5C5C] bg-[#11110F] border border-[#11110F]' : 'text-[#11110F]'}`}>
             {demoState.temp}°C
           </span>
-          <span className="text-[11px] font-mono text-slate-400 mt-1 block">
-            Pres: {demoState.pres} hPa • RH: {demoState.hum}%
+          <span className="text-[11px] font-bold text-[#555550] mt-1 block uppercase">
+            PRES: {demoState.pres} hPa • RH: {demoState.hum}%
           </span>
         </div>
 
         {/* Anomaly & Lifecycle */}
-        <div className="skyguard-card p-4 border rounded-2xl text-center">
-          <span className="text-[10px] font-bold text-slate-400 uppercase">AI Diagnosis & Status</span>
-          <span className="block text-xs font-bold text-slate-900 dark:text-white mt-1">
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-4 text-center">
+          <span className="text-[10px] font-bold text-[#555550] uppercase">// DIAGNOSIS & STATUS</span>
+          <span className="block text-xs font-bold text-[#11110F] uppercase mt-1">
             {demoState.cause}
           </span>
           <div className="mt-2 flex items-center justify-center gap-1">
@@ -254,24 +277,24 @@ export const GuidedDemoPage: React.FC = () => {
         </div>
 
         {/* Trust Score */}
-        <div className="skyguard-card p-4 border rounded-2xl flex items-center justify-center">
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-4 flex items-center justify-center">
           <TrustMeter score={demoState.trust} size="sm" />
         </div>
 
         {/* Fingerprint Match */}
-        <div className="skyguard-card p-4 border rounded-2xl text-center">
-          <span className="text-[10px] font-bold text-slate-400 uppercase">Fault Fingerprint (USP 4)</span>
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-4 text-center">
+          <span className="text-[10px] font-bold text-[#555550] uppercase">// FAULT FINGERPRINT</span>
           {demoState.fingerprintMatch ? (
             <div className="mt-1">
-              <span className="font-bold text-xs text-purple-600 dark:text-purple-400 block font-mono">
+              <span className="font-bold text-xs bg-[#4057FF] text-[#FFFFFF] px-1 border border-[#11110F] block">
                 {demoState.fingerprintMatch.code}
               </span>
-              <span className="text-xs font-extrabold text-emerald-500 block font-mono mt-0.5">
-                {demoState.fingerprintMatch.similarity}% Similarity
+              <span className="text-xs font-bold text-[#11110F] bg-[#C8FF2E] px-1 border border-[#11110F] block mt-1">
+                {demoState.fingerprintMatch.similarity}% SIMILARITY
               </span>
             </div>
           ) : (
-            <span className="text-xs text-slate-400 block mt-2">Awaiting pattern match</span>
+            <span className="text-xs text-[#555550] block mt-2 font-bold uppercase">AWAITING PATTERN MATCH</span>
           )}
         </div>
 
@@ -279,44 +302,44 @@ export const GuidedDemoPage: React.FC = () => {
 
       {/* Consensus Self-Healing Output (USP 3) */}
       {demoState.consensusEstimate && (
-        <div className="skyguard-card p-5 border-2 border-emerald-500 dark:border-emerald-400 rounded-2xl bg-emerald-50/20 dark:bg-emerald-950/20 space-y-4">
-          <div className="flex items-center justify-between border-b border-emerald-200 dark:border-emerald-800 pb-3">
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] p-5 space-y-4">
+          <div className="flex items-center justify-between border-b-2 border-[#11110F] pb-3">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-emerald-500" />
-              <h3 className="font-bold text-sm text-slate-900 dark:text-white">
-                ⭐ Consensus Self-Healing Auto-Recovery Activated (USP 3)
+              <Sparkles className="w-5 h-5 text-[#11110F]" />
+              <h3 className="font-display text-xl uppercase tracking-wider text-[#11110F]">
+                CONSENSUS SELF-HEALING RECOVERY ACTIVATED (USP 3)
               </h3>
             </div>
-            <span className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-300">
-              {demoState.consensusEstimate.agreement}% Agreement
+            <span className="font-mono text-xs font-bold bg-[#C8FF2E] px-2 py-0.5 border border-[#11110F]">
+              {demoState.consensusEstimate.agreement}% AGREEMENT
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs font-mono text-center">
-            <div className="p-2.5 rounded-xl bg-white dark:bg-slate-800 border">
-              <span className="text-[10px] text-slate-400 block">Model A (Temporal)</span>
-              <span className="font-bold text-sm text-slate-900 dark:text-white">{demoState.consensusEstimate.modelA}°C</span>
+            <div className="p-2.5 bg-[#F4F1E8] border-2 border-[#11110F]">
+              <span className="text-[10px] text-[#555550] block uppercase font-bold">MODEL A (TEMPORAL)</span>
+              <span className="font-bold text-sm text-[#11110F]">{demoState.consensusEstimate.modelA}°C</span>
             </div>
-            <div className="p-2.5 rounded-xl bg-white dark:bg-slate-800 border">
-              <span className="text-[10px] text-slate-400 block">Model B (Diurnal)</span>
-              <span className="font-bold text-sm text-slate-900 dark:text-white">{demoState.consensusEstimate.modelB}°C</span>
+            <div className="p-2.5 bg-[#F4F1E8] border-2 border-[#11110F]">
+              <span className="text-[10px] text-[#555550] block uppercase font-bold">MODEL B (DIURNAL)</span>
+              <span className="font-bold text-sm text-[#11110F]">{demoState.consensusEstimate.modelB}°C</span>
             </div>
-            <div className="p-2.5 rounded-xl bg-white dark:bg-slate-800 border">
-              <span className="text-[10px] text-slate-400 block">Model C (Multivariate)</span>
-              <span className="font-bold text-sm text-slate-900 dark:text-white">{demoState.consensusEstimate.modelC}°C</span>
+            <div className="p-2.5 bg-[#F4F1E8] border-2 border-[#11110F]">
+              <span className="text-[10px] text-[#555550] block uppercase font-bold">MODEL C (MULTIVARIATE)</span>
+              <span className="font-bold text-sm text-[#11110F]">{demoState.consensusEstimate.modelC}°C</span>
             </div>
-            <div className="p-2.5 rounded-xl bg-emerald-500 text-white shadow-sm">
-              <span className="text-[10px] text-white/80 block font-bold">Consensus Estimate</span>
+            <div className="p-2.5 bg-[#C8FF2E] text-[#11110F] border-2 border-[#11110F] shadow-[2px_2px_0_#11110F]">
+              <span className="text-[10px] text-[#11110F] block font-bold uppercase">CONSENSUS ESTIMATE</span>
               <span className="font-extrabold text-sm">{demoState.consensusEstimate.consensus}°C</span>
             </div>
           </div>
 
-          <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border text-xs flex items-center justify-between">
-            <span className="text-slate-600 dark:text-slate-300">
-              Raw Outlier: <strong className="line-through text-rose-500">75.2°C</strong> preserved immutably in DB • Corrected Value: <strong className="text-emerald-500">31.2°C</strong>
+          <div className="p-3 bg-[#F4F1E8] border-2 border-[#11110F] text-xs font-mono flex flex-wrap items-center justify-between gap-2">
+            <span className="text-[#11110F] uppercase font-bold">
+              RAW OUTLIER: <strong className="line-through bg-[#FF5C5C] px-1 text-[#11110F]">75.2°C</strong> PRESERVED IN DB • CORRECTED: <strong className="bg-[#C8FF2E] px-1 text-[#11110F]">31.2°C</strong>
             </span>
-            <Link to="/audit" className="font-bold text-sky-600 dark:text-cyan-400 hover:underline">
-              Inspect Audit Ledger →
+            <Link to="/audit" className="font-bold text-[#11110F] uppercase underline hover:bg-[#C8FF2E] px-1">
+              INSPECT AUDIT LEDGER →
             </Link>
           </div>
         </div>

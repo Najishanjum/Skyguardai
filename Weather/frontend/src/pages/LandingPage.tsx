@@ -152,6 +152,35 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
+      {/* 1.5. Platform Video Walkthrough Showcase */}
+      <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[7px_7px_0_#11110F] p-6 space-y-4">
+          <div className="flex flex-wrap items-center justify-between border-b-2 border-[#11110F] pb-4 gap-3">
+            <div>
+              <span className="font-mono text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 bg-[#C8FF2E] text-[#11110F] border border-[#11110F]">
+                // VIDEO WALKTHROUGH
+              </span>
+              <h2 className="text-3xl font-display uppercase tracking-tight text-[#11110F] mt-1">
+                SKYGUARD AI PLATFORM DEMONSTRATION
+              </h2>
+            </div>
+            <span className="font-mono text-xs font-bold px-3 py-1 bg-[#FF5C5C] text-[#11110F] border-2 border-[#11110F] shadow-[2px_2px_0_#11110F] uppercase">
+              OFFICIAL WALKTHROUGH VIDEO
+            </span>
+          </div>
+
+          <div className="relative bg-[#11110F] border-2 border-[#11110F] overflow-hidden shadow-[4px_4px_0_#11110F]">
+            <video 
+              src="/Skyguard.mp4" 
+              controls 
+              className="w-full h-auto max-h-[520px] mx-auto object-contain"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </section>
+
       {/* 2. Four Flagship Innovations (USPs) */}
       <section className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16">
