@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   ShieldCheck, Activity, Sparkles, Fingerprint, 
-  ArrowRight, Radio, PlayCircle,
+  ArrowRight, Radio, PlayCircle, Search,
   Thermometer, Gauge, Droplets, Clock
 } from 'lucide-react';
 import { api } from '../services/api';
@@ -11,6 +11,8 @@ import { TrustMeter } from '../components/common/TrustMeter';
 
 export const LandingPage: React.FC = () => {
   const [liveCards, setLiveCards] = useState<LiveWeatherCardData[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     api.getLiveCards()
@@ -21,6 +23,14 @@ export const LandingPage: React.FC = () => {
         console.error("Failed to load landing live cards", err);
       });
   }, []);
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/live?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery('');
+    }
+  };
 
   const featuredCard = liveCards[0];
 
@@ -57,8 +67,20 @@ export const LandingPage: React.FC = () => {
               consensus-based self-healing, and meteorological trust scoring for Automatic Weather Stations (AWS).
             </p>
 
+            {/* Search Bar positioned directly above action buttons */}
+            <form onSubmit={handleSearchSubmit} className="mt-8 max-w-xl mx-auto relative">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="SEARCH AWS STATION, CITY, OR COORDINATES..."
+                className="w-full pl-10 pr-4 py-3 text-xs sm:text-sm font-mono font-bold uppercase bg-[#FFFFFF] border-2 border-[#11110F] shadow-[4px_4px_0_#11110F] text-[#11110F] placeholder-[#555550] focus:bg-[#C8FF2E] focus:outline-none transition-colors"
+              />
+              <Search className="w-4 h-4 text-[#11110F] absolute left-3.5 top-4" />
+            </form>
+
             {/* Action Buttons */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
               <Link
                 to="/dashboard"
                 className="brutal-btn brutal-btn-primary text-sm px-6 py-3"

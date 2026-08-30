@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { 
-  ShieldCheck, Sun, Moon, Search, Menu, PlayCircle
+  ShieldCheck, Sun, Moon, Menu, PlayCircle
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from '../../context/AuthContext';
@@ -16,17 +16,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
   const { theme, toggleTheme } = useTheme();
   const { role, switchRole } = useAuth();
   const { isConnected } = useWebSocket();
-  const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
   const location = useLocation();
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/live?search=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery('');
-    }
-  };
 
   const navLinks = [
     { to: '/', label: 'HOME' },
@@ -38,7 +28,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
 
   return (
     <header className="sticky top-0 z-40 w-full h-20 bg-[#F4F1E8] border-b-2 border-[#11110F]">
-      <div className="flex h-full items-center justify-between px-4 md:px-6 max-w-7xl mx-auto gap-2">
+      <div className="flex h-full items-center justify-between px-3 md:px-6 max-w-7xl mx-auto gap-3">
         
         {/* Left: Brand Logo & Mobile Toggle */}
         <div className="flex items-center gap-3 flex-shrink-0">
@@ -58,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
                 SKYGUARD
               </span>
             </div>
-            <div className="hidden xl:block flex-shrink-0">
+            <div className="hidden sm:block flex-shrink-0">
               <span className="font-mono text-[11px] font-bold tracking-wider px-2 py-0.5 bg-[#FF5C5C] text-[#11110F] border-2 border-[#11110F] shadow-[2px_2px_0_#11110F] uppercase whitespace-nowrap">
                 MoES / IMD
               </span>
@@ -86,20 +76,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
           })}
         </nav>
 
-        {/* Middle/Right: Search Bar & Actions */}
+        {/* Right Actions: SIH Demo, Stream Indicator, Persona Switcher, Dark/Light Toggle */}
         <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-          {/* Global Search Bar */}
-          <form onSubmit={handleSearchSubmit} className="relative hidden md:block w-36 lg:w-48 xl:w-56 flex-shrink-0">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="SEARCH AWS..."
-              className="w-full pl-8 pr-2 py-1.5 text-xs font-mono font-bold uppercase bg-[#FFFFFF] border-2 border-[#11110F] text-[#11110F] placeholder-[#555550] focus:bg-[#C8FF2E] focus:outline-none transition-colors whitespace-nowrap"
-            />
-            <Search className="w-3.5 h-3.5 text-[#11110F] absolute left-2.5 top-2.5" />
-          </form>
-
           {/* SIH Demo Button */}
           <Link
             to="/demo"
@@ -109,7 +87,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
             <span>SIH DEMO</span>
           </Link>
 
-          {/* WebSocket Indicator */}
+          {/* WebSocket Live Indicator */}
           <div 
             className={`flex items-center gap-1.5 px-2.5 py-1 border-2 border-[#11110F] font-mono text-[11px] font-bold uppercase whitespace-nowrap flex-shrink-0 ${
               isConnected ? 'bg-[#C8FF2E] text-[#11110F]' : 'bg-[#FF5C5C] text-[#11110F]'
@@ -117,7 +95,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
             title={isConnected ? "Real-time Live Stream Active" : "Connecting to Stream..."}
           >
             <span className={`w-2 h-2 border border-[#11110F] ${isConnected ? "bg-[#11110F] animate-pulse" : "bg-[#FFFFFF]"}`} />
-            <span className="hidden xl:inline">{isConnected ? "LIVE" : "OFFLINE"}</span>
+            <span className="hidden md:inline">{isConnected ? "LIVE" : "OFFLINE"}</span>
           </div>
 
           {/* Role Persona Switcher */}
@@ -136,11 +114,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
             </select>
           </div>
 
-          {/* Theme Toggle */}
+          {/* Theme Dark/Light Mode Toggle */}
           <button
             onClick={toggleTheme}
-            className="p-2 bg-[#FFFFFF] border-2 border-[#11110F] shadow-[2px_2px_0_#11110F] hover:bg-[#C8FF2E] hover:translate-y-[-1px] transition-all flex-shrink-0"
-            title="Toggle Theme"
+            className="p-2 bg-[#FFFFFF] border-2 border-[#11110F] shadow-[2px_2px_0_#11110F] hover:bg-[#C8FF2E] hover:translate-y-[-1px] transition-all flex-shrink-0 flex items-center justify-center"
+            title={`Switch to ${theme === 'dark' ? 'Light Clear Sky' : 'Dark Command'} Mode`}
             aria-label="Toggle Theme"
           >
             {theme === 'dark' ? <Sun className="w-4 h-4 text-[#11110F]" /> : <Moon className="w-4 h-4 text-[#11110F]" />}
