@@ -1,24 +1,86 @@
-# Logs
-logs
-*.log
+# =========================
+
+# Frontend / Node
+
+# =========================
+
+node_modules/
+dist/
+dist-ssr/
+*.local
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# =========================
 
-# Editor directories and files
+# Environment / Secrets
+
+# =========================
+
+.env
+.env.*
+!.env.example
+
+# =========================
+
+# Python / FastAPI
+
+# =========================
+
+**pycache**/
+*.py[cod]
+*$py.class
+
+.venv/
+venv/
+env/
+ENV/
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# =========================
+
+# Database
+
+# =========================
+
+*.db
+*.sqlite
+*.sqlite3
+
+# =========================
+
+# IDE / OS
+
+# =========================
+
 .vscode/*
 !.vscode/extensions.json
-.idea
+
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# =========================
+
+# Build / Temporary
+
+# =========================
+
+*.tmp
+*.temp
+.cache/
+coverage/
+htmlcov/
+.pyre/
+.ipynb_checkpoints/
