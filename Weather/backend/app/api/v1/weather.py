@@ -11,32 +11,62 @@ from app.services.pipeline import ObservationPipeline
 
 router = APIRouter()
 
+from sqlalchemy import func, and_
+
 @router.get("/live-cards", response_model=List[LiveWeatherCard])
 def get_live_cards(db: Session = Depends(get_db)):
     """Returns real-time weather cards for all stations with freshness and trust score metrics."""
     stations = db.query(Station).all()
     cards = []
 
+    # Optimize N+1 query by doing bulk fetch of latest records for all stations
+    subq_readings = db.query(
+        WeatherReading.station_id,
+        func.max(WeatherReading.timestamp).label("max_ts")
+    ).group_by(WeatherReading.station_id).subquery()
+
+    latest_readings = db.query(WeatherReading).join(
+        subq_readings,
+        and_(
+            WeatherReading.station_id == subq_readings.c.station_id,
+            WeatherReading.timestamp == subq_readings.c.max_ts
+        )
+    ).all()
+    readings_map = {r.station_id: r for r in latest_readings}
+
+    subq_trust = db.query(
+        TrustScore.station_id,
+        func.max(TrustScore.timestamp).label("max_ts")
+    ).group_by(TrustScore.station_id).subquery()
+    
+    latest_trust = db.query(TrustScore).join(
+        subq_trust,
+        and_(
+            TrustScore.station_id == subq_trust.c.station_id,
+            TrustScore.timestamp == subq_trust.c.max_ts
+        )
+    ).all()
+    trust_map = {t.station_id: t for t in latest_trust}
+
+    subq_anom = db.query(
+        Anomaly.station_id,
+        func.max(Anomaly.timestamp).label("max_ts")
+    ).group_by(Anomaly.station_id).subquery()
+    
+    latest_anom = db.query(Anomaly).join(
+        subq_anom,
+        and_(
+            Anomaly.station_id == subq_anom.c.station_id,
+            Anomaly.timestamp == subq_anom.c.max_ts
+        )
+    ).all()
+    anom_map = {a.station_id: a for a in latest_anom}
+
     now = datetime.now(timezone.utc)
     for s in stations:
-        latest = (
-            db.query(WeatherReading)
-            .filter(WeatherReading.station_id == s.id)
-            .order_by(WeatherReading.timestamp.desc())
-            .first()
-        )
-        trust = (
-            db.query(TrustScore)
-            .filter(TrustScore.station_id == s.id)
-            .order_by(TrustScore.timestamp.desc())
-            .first()
-        )
-        anom = (
-            db.query(Anomaly)
-            .filter(Anomaly.station_id == s.id)
-            .order_by(Anomaly.timestamp.desc())
-            .first()
-        )
+        latest = readings_map.get(s.id)
+        trust = trust_map.get(s.id)
+        anom = anom_map.get(s.id)
 
         obs_time = latest.timestamp if latest else now
         retrieval_time = latest.retrieval_timestamp if latest else now

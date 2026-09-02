@@ -30,49 +30,49 @@ export const MaintenancePage: React.FC = () => {
     <div className="space-y-6 pb-12">
       
       {/* Header */}
-      <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-          Predictive Maintenance & Work Orders Center
+      <div className="border-b-2 border-[#11110F] pb-4">
+        <h1 className="text-3xl sm:text-4xl font-display uppercase tracking-tight text-[#11110F]">
+          PREDICTIVE MAINTENANCE & WORK ORDERS CENTER
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm font-mono text-[#555550] uppercase mt-1">
           Automated transducer failure risk classification and prioritized operational maintenance recommendations.
         </p>
       </div>
 
       {/* Alerts List */}
-      <div className="space-y-4">
+      <div className="space-y-4 pt-2">
         {alerts.map((alert) => (
-          <div key={alert.id} className="skyguard-card p-5 border rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <div className="flex items-start gap-3.5">
-              <div className={`p-3 rounded-xl ${
+          <div key={alert.id} className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="flex items-start gap-4">
+              <div className={`p-3 border-2 border-[#11110F] shadow-[2px_2px_0_#11110F] ${
                 alert.severity === 'CRITICAL' 
-                  ? 'bg-rose-100 dark:bg-rose-950 text-rose-600 dark:text-rose-400' 
-                  : 'bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400'
+                  ? 'bg-[#FF5C5C] text-[#FFFFFF]' 
+                  : 'bg-[#4057FF] text-[#FFFFFF]'
               }`}>
-                <Wrench className="w-5 h-5" />
+                <Wrench className="w-5 h-5 stroke-[2.5]" />
               </div>
 
               <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="font-bold text-sm text-slate-900 dark:text-white">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="font-bold text-lg font-display uppercase text-[#11110F]">
                     {alert.title}
                   </h3>
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                    alert.severity === 'CRITICAL' ? 'bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300' : 'bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300'
+                  <span className={`text-[10px] font-bold font-mono px-2 py-0.5 border border-[#11110F] shadow-[1px_1px_0_#11110F] ${
+                    alert.severity === 'CRITICAL' ? 'bg-[#FF5C5C] text-[#FFFFFF]' : 'bg-[#C8FF2E] text-[#11110F]'
                   }`}>
                     {alert.severity}
                   </span>
-                  <span className="text-[11px] font-mono text-slate-400">
-                    Station #{alert.station_id} ({alert.sensor_type})
+                  <span className="text-[10px] font-mono font-bold text-[#555550] uppercase">
+                    STATION #{alert.station_id} ({alert.sensor_type})
                   </span>
                 </div>
 
-                <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 max-w-2xl">
+                <p className="text-xs font-mono font-bold text-[#11110F] mt-2 max-w-2xl uppercase">
                   {alert.recommendation}
                 </p>
 
-                <span className="text-[10px] text-slate-400 mt-1.5 block">
-                  Logged: {new Date(alert.created_at).toLocaleString()} • Status: <strong className="uppercase text-slate-700 dark:text-slate-200">{alert.status}</strong>
+                <span className="text-[10px] font-mono font-bold text-[#555550] mt-2 block uppercase">
+                  LOGGED: {new Date(alert.created_at).toLocaleString()} • STATUS: <strong className="uppercase text-[#11110F]">{alert.status}</strong>
                 </span>
               </div>
             </div>
@@ -81,18 +81,18 @@ export const MaintenancePage: React.FC = () => {
               {alert.status === 'ACTIVE' && (
                 <button
                   onClick={() => handleAcknowledge(alert.id)}
-                  className="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200"
+                  className="brutal-btn brutal-btn-tertiary text-[10px] py-2 px-4"
                 >
-                  Acknowledge
+                  ACKNOWLEDGE
                 </button>
               )}
 
               {alert.status !== 'RESOLVED' && (
                 <button
                   onClick={() => handleResolve(alert.id)}
-                  className="px-3.5 py-1.5 text-xs font-bold rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white shadow-sm"
+                  className="brutal-btn brutal-btn-primary text-[10px] py-2 px-4"
                 >
-                  Resolve Alert
+                  RESOLVE ALERT
                 </button>
               )}
             </div>

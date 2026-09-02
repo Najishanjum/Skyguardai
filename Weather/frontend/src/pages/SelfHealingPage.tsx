@@ -24,28 +24,28 @@ export const SelfHealingPage: React.FC = () => {
       
       {/* Header */}
       <div>
-        <div className="flex items-center gap-2">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Consensus-Based Self-Healing Center
+        <div className="flex flex-wrap items-center gap-3">
+          <h1 className="text-3xl sm:text-4xl font-display uppercase tracking-tight text-[#11110F]">
+            CONSENSUS-BASED SELF-HEALING CENTER
           </h1>
-          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-800">
+          <span className="text-xs font-mono font-bold px-2 py-0.5 bg-[#C8FF2E] text-[#11110F] border-2 border-[#11110F] shadow-[2px_2px_0_#11110F] uppercase">
             ⭐ FLAGSHIP USP 3
           </span>
         </div>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm font-mono text-[#555550] uppercase mt-2">
           Tri-model ensemble (Temporal Lag, Diurnal Baseline, Multivariate Regression) calculates inter-model consensus agreement before any automated estimate is accepted.
         </p>
       </div>
 
       {/* Scientific Integrity Banner */}
-      <div className="p-4 rounded-2xl bg-emerald-50/80 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/80 flex items-center justify-between">
+      <div className="p-4 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <ShieldCheck className="w-6 h-6 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
+          <ShieldCheck className="w-6 h-6 text-[#11110F] flex-shrink-0" />
           <div>
-            <span className="font-bold text-sm text-emerald-900 dark:text-emerald-200 block">
+            <span className="font-bold text-sm text-[#11110F] font-mono uppercase block">
               100% Immutable Raw Observation Guarantee
             </span>
-            <p className="text-xs text-emerald-700 dark:text-emerald-400">
+            <p className="text-xs font-mono font-bold text-[#555550] uppercase mt-1">
               SkyGuard AI NEVER overwrites or corrupts the raw meteorological database. Corrected values are saved side-by-side with full provenance.
             </p>
           </div>
@@ -54,79 +54,83 @@ export const SelfHealingPage: React.FC = () => {
 
       {/* Overview Metric Stats */}
       {overview && (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="skyguard-card p-5 border rounded-2xl text-center">
-            <span className="text-xs font-bold text-slate-400 uppercase block">Total Self-Healing Audits</span>
-            <span className="text-3xl font-extrabold font-mono text-slate-900 dark:text-white mt-1 block">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-5 text-center">
+            <span className="text-[10px] font-mono font-bold text-[#555550] uppercase block">TOTAL SELF-HEALING AUDITS</span>
+            <span className="text-3xl font-display text-[#11110F] mt-2 block">
               {overview.total_estimations}
             </span>
           </div>
 
-          <div className="skyguard-card p-5 border rounded-2xl text-center">
-            <span className="text-xs font-bold text-emerald-500 uppercase block">Safe Auto-Estimates Accepted</span>
-            <span className="text-3xl font-extrabold font-mono text-emerald-600 dark:text-emerald-400 mt-1 block">
+          <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-5 text-center">
+            <span className="text-[10px] font-mono font-bold text-[#11110F] uppercase block border-b-2 border-[#11110F] pb-1 w-max mx-auto">SAFE AUTO-ESTIMATES ACCEPTED</span>
+            <span className="text-3xl font-display text-[#11110F] mt-2 block">
               {overview.safe_auto_estimates}
             </span>
-            <span className="text-[11px] text-slate-400">Model agreement &ge; 85%</span>
+            <span className="text-[10px] font-mono font-bold text-[#555550] uppercase mt-1 block">MODEL AGREEMENT &ge; 85%</span>
           </div>
 
-          <div className="skyguard-card p-5 border rounded-2xl text-center">
-            <span className="text-xs font-bold text-purple-500 uppercase block">Human Review Required (Diverged)</span>
-            <span className="text-3xl font-extrabold font-mono text-purple-600 dark:text-purple-400 mt-1 block">
+          <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-5 text-center">
+            <span className="text-[10px] font-mono font-bold text-[#11110F] bg-[#C8FF2E] px-1 border border-[#11110F] uppercase block w-max mx-auto">HUMAN REVIEW REQUIRED</span>
+            <span className="text-3xl font-display text-[#11110F] mt-2 block">
               {overview.human_review_required}
             </span>
-            <span className="text-[11px] text-slate-400">Correction withheld for integrity</span>
+            <span className="text-[10px] font-mono font-bold text-[#555550] uppercase mt-1 block">CORRECTION WITHHELD FOR INTEGRITY</span>
           </div>
         </div>
       )}
 
       {/* Corrected Observations Table */}
-      <div className="skyguard-card border rounded-2xl overflow-hidden">
+      <div className="brutal-card p-0 overflow-hidden mt-6">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 text-slate-500 font-bold uppercase tracking-wider">
+            <thead className="bg-[#F4F1E8] border-b-2 border-[#11110F] text-[#11110F] font-mono font-bold uppercase tracking-wider">
               <tr>
-                <th className="p-4">Timestamp / Parameter</th>
-                <th className="p-4">Raw Preserved Value</th>
-                <th className="p-4">Model A (Temporal)</th>
-                <th className="p-4">Model B (Diurnal)</th>
-                <th className="p-4">Model C (Multivariate)</th>
-                <th className="p-4">Agreement %</th>
+                <th className="p-4 border-r border-[#11110F]/20">Timestamp / Parameter</th>
+                <th className="p-4 border-r border-[#11110F]/20">Raw Preserved Value</th>
+                <th className="p-4 border-r border-[#11110F]/20">Model A (Temporal)</th>
+                <th className="p-4 border-r border-[#11110F]/20">Model B (Diurnal)</th>
+                <th className="p-4 border-r border-[#11110F]/20">Model C (Multivari.)</th>
+                <th className="p-4 border-r border-[#11110F]/20">Agreement %</th>
                 <th className="p-4">Consensus Verdict</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800 font-mono">
+            <tbody className="divide-y-2 divide-[#11110F] font-mono">
               {records.map((rec) => (
-                <tr key={rec.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
-                  <td className="p-4">
+                <tr key={rec.id} className="hover:bg-[#C8FF2E]/10 transition-colors">
+                  <td className="p-4 border-r border-[#11110F]/20">
                     <div>
-                      <span className="font-bold uppercase text-slate-900 dark:text-white block font-sans">
+                      <span className="font-bold text-sm uppercase text-[#11110F] block font-mono">
                         {rec.parameter}
                       </span>
-                      <span className="text-[11px] text-slate-400">
+                      <span className="text-[10px] font-bold text-[#555550]">
                         {new Date(rec.created_at).toLocaleTimeString()}
                       </span>
                     </div>
                   </td>
 
-                  <td className="p-4 font-extrabold text-rose-500 line-through">
-                    {rec.original_value !== null ? `${rec.original_value}°C` : "NULL"}
+                  <td className="p-4 border-r border-[#11110F]/20">
+                    <span className="font-bold font-mono text-[#FFFFFF] bg-[#FF5C5C] px-1 line-through border border-[#11110F]">
+                      {rec.original_value !== null ? `${rec.original_value}°C` : "NULL"}
+                    </span>
                   </td>
 
-                  <td className="p-4 text-slate-600 dark:text-slate-300">
+                  <td className="p-4 font-bold text-[#11110F] border-r border-[#11110F]/20">
                     {rec.model_temporal_estimate}°C
                   </td>
 
-                  <td className="p-4 text-slate-600 dark:text-slate-300">
+                  <td className="p-4 font-bold text-[#11110F] border-r border-[#11110F]/20">
                     {rec.model_historical_estimate}°C
                   </td>
 
-                  <td className="p-4 text-slate-600 dark:text-slate-300">
+                  <td className="p-4 font-bold text-[#11110F] border-r border-[#11110F]/20">
                     {rec.model_multivariate_estimate}°C
                   </td>
 
-                  <td className="p-4 font-bold text-sky-600 dark:text-cyan-400">
-                    {rec.model_agreement_percent}%
+                  <td className="p-4 border-r border-[#11110F]/20">
+                    <span className="font-bold font-mono bg-[#C8FF2E] border border-[#11110F] px-1 text-[#11110F]">
+                      {rec.model_agreement_percent}%
+                    </span>
                   </td>
 
                   <td className="p-4 font-sans">

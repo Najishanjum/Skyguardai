@@ -45,6 +45,21 @@ export const LiveMonitoringPage: React.FC = () => {
     }
   }, [lastMessage]);
 
+  // Debounced real-time search for fast and responsive location querying
+  useEffect(() => {
+    const trimmed = searchQuery.trim();
+    if (trimmed.length < 2) {
+      setSearchResults([]);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      handleSearch(trimmed);
+    }, 280);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
   const handleSearch = async (query: string) => {
     if (!query.trim()) return;
     setSearching(true);
@@ -76,33 +91,33 @@ export const LiveMonitoringPage: React.FC = () => {
     <div className="space-y-6 pb-12">
       
       {/* Top Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-[#11110F] pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              Live Meteorological Stream
+            <h1 className="text-3xl sm:text-4xl font-display uppercase tracking-tight text-[#11110F]">
+              LIVE METEOROLOGICAL STREAM
             </h1>
-            <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-800">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+            <span className="flex items-center gap-1.5 px-2 py-0.5 text-xs font-mono font-bold bg-[#C8FF2E] text-[#11110F] border border-[#11110F] shadow-[2px_2px_0_#11110F]">
+              <span className="w-2 h-2 bg-[#FF5C5C] animate-ping border border-[#11110F]" />
               LIVE
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm font-mono text-[#555550] uppercase mt-1">
             Official Open-Meteo & Automatic Weather Stations real-time sensor observations and trust classification.
           </p>
         </div>
 
         <button
           onClick={loadLiveCards}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 text-slate-700 dark:text-slate-200 transition-all shadow-sm"
+          className="brutal-btn brutal-btn-tertiary px-3 py-2 text-[10px]"
         >
           <RefreshCw className="w-3.5 h-3.5" />
-          <span>Refresh All</span>
+          <span>REFRESH ALL</span>
         </button>
       </div>
 
       {/* Global Location Search Bar */}
-      <div className="skyguard-card p-4 border rounded-2xl relative">
+      <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] p-4 relative">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -115,17 +130,17 @@ export const LiveMonitoringPage: React.FC = () => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search any location in India or globally (e.g., Shimla, Pune, London, 28.58, 77.20)..."
-              className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500"
+              placeholder="SEARCH ANY LOCATION (E.G., PUNE, LONDON, 28.58, 77.20)..."
+              className="brutal-input pl-9 pr-4 py-3 w-full font-bold uppercase text-xs"
             />
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+            <Search className="w-4 h-4 text-[#11110F] absolute left-3 top-3.5" />
           </div>
           <button
             type="submit"
             disabled={searching}
-            className="px-5 py-2 text-xs sm:text-sm font-bold rounded-xl bg-sky-500 hover:bg-sky-600 text-white transition-all"
+            className="brutal-btn brutal-btn-primary px-6 py-3 text-[10px]"
           >
-            {searching ? 'Searching...' : 'Find Weather'}
+            {searching ? 'SEARCHING...' : 'FIND WEATHER'}
           </button>
         </form>
 
@@ -158,39 +173,39 @@ export const LiveMonitoringPage: React.FC = () => {
 
       {/* Searched Location Inspection Highlight */}
       {activeSearchedLocation && (
-        <div className="skyguard-card p-6 border-2 border-sky-500 dark:border-cyan-400 rounded-2xl bg-sky-50/20 dark:bg-sky-950/20">
-          <div className="flex items-center justify-between border-b border-sky-200 dark:border-sky-800/60 pb-3 mb-4">
+        <div className="bg-[#C8FF2E] border-2 border-[#11110F] shadow-[7px_7px_0_#11110F] p-6 mt-6">
+          <div className="flex flex-wrap items-center justify-between border-b-2 border-[#11110F]/10 pb-4 mb-4 gap-3">
             <div className="flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-sky-500 animate-bounce" />
-              <h2 className="text-base font-bold text-slate-900 dark:text-white">
-                Live Query Result: {activeSearchedLocation.station_name}
+              <MapPin className="w-6 h-6 text-[#11110F] animate-bounce" />
+              <h2 className="text-xl font-display uppercase tracking-wider text-[#11110F]">
+                LIVE QUERY RESULT: {activeSearchedLocation.station_name}
               </h2>
             </div>
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-sky-500 text-white font-bold">
+            <span className="text-[10px] px-2.5 py-1 bg-[#FF5C5C] text-[#FFFFFF] border border-[#11110F] shadow-[2px_2px_0_#11110F] font-mono font-bold uppercase">
               INGESTED TO PIPELINE
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 items-center">
-            <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border text-center">
-              <span className="text-[10px] font-bold text-slate-400 uppercase">Temperature</span>
-              <span className="block text-2xl font-extrabold font-mono text-slate-900 dark:text-white mt-1">
+            <div className="p-4 bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] text-center">
+              <span className="text-[10px] font-mono font-bold text-[#555550] uppercase block">TEMPERATURE</span>
+              <span className="block text-2xl font-display text-[#11110F] mt-2">
                 {activeSearchedLocation.temperature}°C
               </span>
             </div>
-            <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border text-center">
-              <span className="text-[10px] font-bold text-slate-400 uppercase">Atm. Pressure</span>
-              <span className="block text-2xl font-extrabold font-mono text-slate-900 dark:text-white mt-1">
+            <div className="p-4 bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] text-center">
+              <span className="text-[10px] font-mono font-bold text-[#555550] uppercase block">ATM. PRESSURE</span>
+              <span className="block text-2xl font-display text-[#11110F] mt-2">
                 {activeSearchedLocation.pressure} hPa
               </span>
             </div>
-            <div className="p-3 rounded-xl bg-white dark:bg-slate-800 border text-center">
-              <span className="text-[10px] font-bold text-slate-400 uppercase">Relative Humidity</span>
-              <span className="block text-2xl font-extrabold font-mono text-slate-900 dark:text-white mt-1">
+            <div className="p-4 bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] text-center">
+              <span className="text-[10px] font-mono font-bold text-[#555550] uppercase block">RELATIVE HUMIDITY</span>
+              <span className="block text-2xl font-display text-[#11110F] mt-2">
                 {activeSearchedLocation.humidity}%
               </span>
             </div>
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-4">
               <TrustMeter score={activeSearchedLocation.trust_score} size="sm" />
             </div>
           </div>
@@ -198,72 +213,72 @@ export const LiveMonitoringPage: React.FC = () => {
       )}
 
       {/* Grid of All Stations */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         {cards.map((card) => (
-          <div key={card.station_id} className="skyguard-card p-5 border rounded-2xl flex flex-col justify-between space-y-4">
+          <div key={card.station_id} className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] p-5 flex flex-col justify-between space-y-5">
             
             {/* Card Header */}
             <div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between border-b-2 border-[#11110F] pb-2">
                 <div className="flex items-center gap-2">
-                  <Radio className="w-4 h-4 text-sky-500" />
-                  <h3 className="text-sm font-bold text-slate-900 dark:text-white truncate">
+                  <Radio className="w-4 h-4 text-[#11110F]" />
+                  <h3 className="text-lg font-display uppercase truncate text-[#11110F]">
                     {card.station_name}
                   </h3>
                 </div>
                 <StatusBadge status={card.anomaly_status} type="lifecycle" />
               </div>
               
-              <div className="flex items-center justify-between text-[11px] text-slate-500 mt-1">
+              <div className="flex items-center justify-between text-[10px] font-mono font-bold text-[#555550] uppercase mt-2">
                 <span>{card.state ? `${card.state}, ` : ''}{card.country}</span>
-                <span className="font-mono text-slate-400">{card.latitude.toFixed(2)}°N, {card.longitude.toFixed(2)}°E</span>
+                <span className="text-[#11110F] bg-[#C8FF2E] px-1 border border-[#11110F]">{card.latitude.toFixed(2)}°N, {card.longitude.toFixed(2)}°E</span>
               </div>
             </div>
 
             {/* Weather Parameters */}
-            <div className="grid grid-cols-3 gap-3 py-3 border-y border-slate-100 dark:border-slate-800 text-center">
-              <div className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/60">
-                <span className="text-[10px] font-bold text-slate-400 uppercase block">Temp</span>
-                <span className="text-lg font-extrabold font-mono text-slate-900 dark:text-white mt-0.5 block">
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="p-2 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[2px_2px_0_#11110F]">
+                <span className="text-[10px] font-mono font-bold text-[#555550] uppercase block">TEMP</span>
+                <span className="text-lg font-display text-[#11110F] mt-1 block">
                   {card.temperature !== null ? `${card.temperature}°C` : "--"}
                 </span>
               </div>
 
-              <div className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/60">
-                <span className="text-[10px] font-bold text-slate-400 uppercase block">Pressure</span>
-                <span className="text-lg font-extrabold font-mono text-slate-900 dark:text-white mt-0.5 block">
+              <div className="p-2 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[2px_2px_0_#11110F]">
+                <span className="text-[10px] font-mono font-bold text-[#555550] uppercase block">PRESSURE</span>
+                <span className="text-lg font-display text-[#11110F] mt-1 block">
                   {card.pressure !== null ? `${card.pressure}` : "--"}
                 </span>
               </div>
 
-              <div className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/60">
-                <span className="text-[10px] font-bold text-slate-400 uppercase block">Humidity</span>
-                <span className="text-lg font-extrabold font-mono text-slate-900 dark:text-white mt-0.5 block">
+              <div className="p-2 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[2px_2px_0_#11110F]">
+                <span className="text-[10px] font-mono font-bold text-[#555550] uppercase block">HUMIDITY</span>
+                <span className="text-lg font-display text-[#11110F] mt-1 block">
                   {card.humidity !== null ? `${card.humidity}%` : "--"}
                 </span>
               </div>
             </div>
 
             {/* Trust Meter and Provenance */}
-            <div className="flex items-center justify-between pt-1">
+            <div className="flex items-center justify-between pt-3 border-t-2 border-[#11110F]">
               <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                <ShieldCheck className="w-5 h-5 text-[#11110F]" />
                 <div className="text-xs">
-                  <span className="font-bold text-slate-800 dark:text-slate-200">
-                    Trust: {card.trust_score}/100
+                  <span className="font-mono font-bold text-[#11110F] uppercase">
+                    TRUST: {card.trust_score}/100
                   </span>
-                  <span className="block text-[10px] text-slate-400 uppercase font-semibold">
+                  <span className="block text-[10px] text-[#555550] uppercase font-bold">
                     {card.trust_category}
                   </span>
                 </div>
               </div>
 
-              <div className="text-right text-[10px] text-slate-500">
+              <div className="text-right text-[10px] text-[#555550] font-mono font-bold uppercase">
                 <div className="flex items-center gap-1 justify-end">
-                  <Clock className="w-3 h-3 text-slate-400" />
-                  <span>Age: {card.data_age_seconds}s</span>
+                  <Clock className="w-3 h-3 text-[#11110F]" />
+                  <span>AGE: {card.data_age_seconds}S</span>
                 </div>
-                <span className="text-slate-400">Source: {card.provider}</span>
+                <span className="text-[#555550]">SOURCE: {card.provider}</span>
               </div>
             </div>
 

@@ -29,16 +29,16 @@ export const ExplainableAIPage: React.FC = () => {
     <div className="space-y-6 pb-12">
       
       {/* Header */}
-      <div>
-        <div className="flex items-center gap-2">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Explainable AI (XAI) Laboratory
+      <div className="border-b-2 border-[#11110F] pb-4">
+        <div className="flex flex-wrap items-center gap-3">
+          <h1 className="text-3xl sm:text-4xl font-display uppercase tracking-tight text-[#11110F]">
+            EXPLAINABLE AI (XAI) LABORATORY
           </h1>
-          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-cyan-400 border border-sky-200 dark:border-cyan-800">
-            Progressive Disclosure
+          <span className="text-xs font-bold px-2 py-0.5 bg-[#C8FF2E] text-[#11110F] border border-[#11110F] shadow-[1px_1px_0_#11110F] font-mono uppercase">
+            PROGRESSIVE DISCLOSURE
           </span>
         </div>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm font-mono text-[#555550] uppercase mt-2">
           SHAP feature contribution attributions, ensemble decision reasoning, and plain-English natural language translations tailored to user persona.
         </p>
       </div>
@@ -46,36 +46,36 @@ export const ExplainableAIPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Anomaly Selector List */}
-        <div className="skyguard-card p-4 border rounded-2xl space-y-2 h-[500px] overflow-y-auto">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
-            Select Observation to Explain
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] p-4 space-y-3 h-[500px] overflow-y-auto">
+          <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#555550] block mb-2 border-b-2 border-[#11110F] pb-2">
+            // SELECT OBSERVATION TO EXPLAIN
           </span>
           {anomalies.map((anom) => (
             <button
               key={anom.id}
               onClick={() => handleSelectAnomaly(anom.id)}
-              className={`w-full text-left p-3 rounded-xl border transition-all text-xs flex flex-col justify-between ${
+              className={`w-full text-left p-4 transition-all flex flex-col justify-between ${
                 selectedAnomalyId === anom.id
-                  ? 'bg-sky-50 dark:bg-slate-800 border-sky-500 dark:border-cyan-400 shadow-sm'
-                  : 'border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/40'
+                  ? 'bg-[#C8FF2E] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F]'
+                  : 'bg-[#FFFFFF] border-2 border-[#11110F] hover:bg-[#F4F1E8]'
               }`}
             >
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-slate-900 dark:text-white">
-                  Anomaly #{anom.id}
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span className="font-bold font-display text-lg uppercase text-[#11110F]">
+                  ANOMALY #{anom.id}
                 </span>
-                <span className="font-mono text-[10px] text-slate-400">
+                <span className="font-mono font-bold text-[10px] text-[#555550]">
                   {new Date(anom.timestamp).toLocaleTimeString()}
                 </span>
               </div>
-              <span className="text-slate-600 dark:text-slate-300 mt-1">
+              <span className="text-[#11110F] mt-2 font-mono font-bold uppercase text-[10px]">
                 {anom.probable_cause}
               </span>
-              <div className="mt-2 flex items-center justify-between text-[11px]">
-                <span className="font-mono text-sky-600 dark:text-cyan-400 font-bold">
-                  Score: {anom.composite_score}
+              <div className="mt-3 flex items-center justify-between text-[10px] font-mono font-bold border-t-2 border-[#11110F]/20 pt-2">
+                <span className="text-[#11110F] uppercase">
+                  SCORE: {anom.composite_score}
                 </span>
-                <span className="text-emerald-500 font-semibold">{anom.confidence}% Conf.</span>
+                <span className="text-[#FFFFFF] bg-[#FF5C5C] px-1 border border-[#11110F] uppercase">{anom.confidence}% CONF.</span>
               </div>
             </button>
           ))}
@@ -91,8 +91,8 @@ export const ExplainableAIPage: React.FC = () => {
               featureAttribution={explanation.explanations?.feature_attribution}
             />
           ) : (
-            <div className="flex items-center justify-center h-64 text-slate-400 text-xs">
-              Select an anomaly event to inspect SHAP feature attributions.
+            <div className="flex items-center justify-center h-64 text-[#555550] text-[10px] font-mono font-bold uppercase bg-[#F4F1E8] border-2 border-[#11110F] border-dashed">
+              SELECT AN ANOMALY EVENT TO INSPECT SHAP FEATURE ATTRIBUTIONS.
             </div>
           )}
         </div>

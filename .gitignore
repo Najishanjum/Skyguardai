@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+.pytest_cache/
+Weather/backend/venv/
+Weather/backend/skyguard.db
+
+# Node
+node_modules/
+*/node_modules/
+*/*/node_modules/
+dist/
+*/dist/
+*/*/dist/
+
+# Transient root copies
+backend/
+frontend/
+tests/
+
+# OS
+.DS_Store
+Thumbs.db

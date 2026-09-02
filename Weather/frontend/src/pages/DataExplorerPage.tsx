@@ -26,12 +26,12 @@ export const DataExplorerPage: React.FC = () => {
     <div className="space-y-6 pb-12">
       
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-[#11110F] pb-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Multi-Variable Historical Data Explorer
+          <h1 className="text-3xl sm:text-4xl font-display uppercase tracking-tight text-[#11110F]">
+            MULTI-VARIABLE HISTORICAL DATA EXPLORER
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm font-mono text-[#555550] uppercase mt-2">
             Query and analyze historical time-series correlations across temperature, pressure, relative humidity, and trust score metrics.
           </p>
         </div>
@@ -41,7 +41,7 @@ export const DataExplorerPage: React.FC = () => {
           <select
             value={selectedStationId}
             onChange={(e) => setSelectedStationId(parseInt(e.target.value))}
-            className="text-xs font-semibold py-2 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200"
+            className="brutal-input py-2 px-4 uppercase text-[10px] font-bold min-w-[160px]"
           >
             {stations.map((s) => (
               <option key={s.id} value={s.id}>
@@ -53,38 +53,43 @@ export const DataExplorerPage: React.FC = () => {
           <select
             value={limit}
             onChange={(e) => setLimit(parseInt(e.target.value))}
-            className="text-xs font-semibold py-2 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200"
+            className="brutal-input py-2 px-4 uppercase text-[10px] font-bold min-w-[160px]"
           >
-            <option value={15}>Past 15 Cycles</option>
-            <option value={30}>Past 30 Cycles</option>
-            <option value={60}>Past 60 Cycles</option>
+            <option value={15}>PAST 15 CYCLES</option>
+            <option value={30}>PAST 30 CYCLES</option>
+            <option value={60}>PAST 60 CYCLES</option>
           </select>
         </div>
       </div>
 
       {/* Explorer Chart */}
-      <div className="skyguard-card p-6 border rounded-2xl">
-        <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">
-          Atmospheric Parameter Correlations
+      <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] p-6 mt-6">
+        <h3 className="text-xl font-display text-[#11110F] uppercase tracking-wider mb-4 border-b-2 border-[#11110F] pb-3">
+          ATMOSPHERIC PARAMETER CORRELATIONS
         </h3>
         <div className="h-80 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <RechartsLine data={series} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.2} />
-              <XAxis dataKey="timestamp" stroke="#64748B" fontSize={11} />
-              <YAxis stroke="#64748B" fontSize={11} domain={['auto', 'auto']} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#11110F" opacity={0.1} />
+              <XAxis dataKey="timestamp" stroke="#555550" fontSize={11} />
+              <YAxis stroke="#555550" fontSize={11} domain={['auto', 'auto']} />
               <Tooltip 
                 contentStyle={{ 
-                  backgroundColor: '#1E293B', 
-                  borderColor: '#334155', 
-                  borderRadius: '0.75rem',
-                  color: '#F8FAFC' 
+                  backgroundColor: '#FFFFFF', 
+                  borderColor: '#11110F',
+                  border: '2px solid #11110F',
+                  boxShadow: '3px 3px 0 #11110F',
+                  borderRadius: '0',
+                  color: '#11110F',
+                  fontFamily: 'monospace',
+                  fontWeight: 'bold',
+                  textTransform: 'uppercase'
                 }} 
               />
-              <Line type="monotone" dataKey="temperature" name="Temp (°C)" stroke="#0EA5E9" strokeWidth={2.5} dot={false} />
-              <Line type="monotone" dataKey="pressure" name="Pressure (hPa)" stroke="#10B981" strokeWidth={2} dot={false} />
-              <Line type="monotone" dataKey="humidity" name="Humidity (%)" stroke="#F59E0B" strokeWidth={2} dot={false} />
-              <Line type="monotone" dataKey="trust_score" name="Trust Score" stroke="#8B5CF6" strokeWidth={1.5} strokeDasharray="4 4" dot={false} />
+              <Line type="monotone" dataKey="temperature" name="Temp (°C)" stroke="#4057FF" strokeWidth={3} dot={false} />
+              <Line type="monotone" dataKey="pressure" name="Pressure (hPa)" stroke="#FF5C5C" strokeWidth={3} dot={false} />
+              <Line type="monotone" dataKey="humidity" name="Humidity (%)" stroke="#11110F" strokeWidth={3} dot={false} />
+              <Line type="monotone" dataKey="trust_score" name="Trust Score" stroke="#C8FF2E" strokeWidth={3} strokeDasharray="4 4" dot={false} />
             </RechartsLine>
           </ResponsiveContainer>
         </div>

@@ -25,12 +25,12 @@ export const AnomaliesPage: React.FC = () => {
     <div className="space-y-6 pb-12">
       
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-[#11110F] pb-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            Anomaly Detection & Lifecycle Center
+          <h1 className="text-3xl sm:text-4xl font-display uppercase tracking-tight text-[#11110F]">
+            ANOMALY DETECTION & LIFECYCLE CENTER
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm font-mono text-[#555550] uppercase mt-2">
             Real-time hybrid AI/ML detection ledger with adaptive evidence verification lifecycle tracking.
           </p>
         </div>
@@ -40,97 +40,99 @@ export const AnomaliesPage: React.FC = () => {
           <select
             value={severityFilter}
             onChange={(e) => setSeverityFilter(e.target.value)}
-            className="text-xs font-semibold py-1.5 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200"
+            className="brutal-input py-2 px-4 uppercase text-[10px] font-bold min-w-[160px]"
           >
-            <option value="ALL">All Severities</option>
-            <option value="CRITICAL">Critical Severity</option>
-            <option value="HIGH">High Severity</option>
-            <option value="SUSPICIOUS">Suspicious</option>
-            <option value="WATCH">Watch</option>
+            <option value="ALL">ALL SEVERITIES</option>
+            <option value="CRITICAL">CRITICAL SEVERITY</option>
+            <option value="HIGH">HIGH SEVERITY</option>
+            <option value="SUSPICIOUS">SUSPICIOUS</option>
+            <option value="WATCH">WATCH</option>
           </select>
 
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="text-xs font-semibold py-1.5 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200"
+            className="brutal-input py-2 px-4 uppercase text-[10px] font-bold min-w-[160px]"
           >
-            <option value="ALL">All Lifecycle States</option>
-            <option value="UNDER_VERIFICATION">Under Verification</option>
-            <option value="CONFIRMED_ANOMALY">Confirmed Sensor Fault</option>
-            <option value="CONFIRMED_GENUINE_WEATHER_EVENT">Probable Weather Event</option>
-            <option value="RESOLVED">Resolved</option>
+            <option value="ALL">ALL LIFECYCLE STATES</option>
+            <option value="UNDER_VERIFICATION">UNDER VERIFICATION</option>
+            <option value="CONFIRMED_ANOMALY">CONFIRMED SENSOR FAULT</option>
+            <option value="CONFIRMED_GENUINE_WEATHER_EVENT">PROBABLE WEATHER EVENT</option>
+            <option value="RESOLVED">RESOLVED</option>
           </select>
         </div>
       </div>
 
       {/* Anomalies Table */}
-      <div className="skyguard-card border rounded-2xl overflow-hidden">
+      <div className="brutal-card p-0 mt-6 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 text-slate-500 font-bold uppercase tracking-wider">
+            <thead className="bg-[#F4F1E8] border-b-2 border-[#11110F] text-[#11110F] font-mono font-bold uppercase tracking-wider">
               <tr>
-                <th className="p-4">Anomaly ID / Time</th>
-                <th className="p-4">Station Code</th>
-                <th className="p-4">Probable Root Cause</th>
-                <th className="p-4">AI Score / Severity</th>
-                <th className="p-4">Verification Lifecycle</th>
-                <th className="p-4">Diagnostic Confidence</th>
-                <th className="p-4 text-right">Deep Dive</th>
+                <th className="p-4 border-r border-[#11110F]/20">Anomaly ID / Time</th>
+                <th className="p-4 border-r border-[#11110F]/20">Station Code</th>
+                <th className="p-4 border-r border-[#11110F]/20">Probable Root Cause</th>
+                <th className="p-4 border-r border-[#11110F]/20">AI Score / Severity</th>
+                <th className="p-4 border-r border-[#11110F]/20">Verification Lifecycle</th>
+                <th className="p-4 border-r border-[#11110F]/20">Diag. Conf</th>
+                <th className="p-4 text-center">Deep Dive</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800 font-sans">
+            <tbody className="divide-y-2 divide-[#11110F] font-sans">
               {anomalies.map((anom) => (
-                <tr key={anom.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
-                  <td className="p-4">
+                <tr key={anom.id} className="hover:bg-[#C8FF2E]/10 transition-colors">
+                  <td className="p-4 border-r border-[#11110F]/20">
                     <div className="flex items-center gap-2">
-                      <AlertTriangle className="w-4 h-4 text-amber-500" />
+                      <AlertTriangle className="w-5 h-5 text-[#FF5C5C]" />
                       <div>
-                        <span className="font-bold text-slate-900 dark:text-white font-mono block">
+                        <span className="font-bold text-[#11110F] font-display text-lg block">
                           #{anom.id}
                         </span>
-                        <span className="text-[11px] text-slate-400">
+                        <span className="text-[10px] font-mono font-bold text-[#555550]">
                           {new Date(anom.timestamp).toLocaleTimeString()}
                         </span>
                       </div>
                     </div>
                   </td>
 
-                  <td className="p-4 font-mono font-bold text-sky-600 dark:text-cyan-400">
-                    Station #{anom.station_id}
+                  <td className="p-4 font-mono font-bold text-[#11110F] border-r border-[#11110F]/20">
+                    STATION #{anom.station_id}
                   </td>
 
-                  <td className="p-4">
-                    <span className="font-bold text-slate-800 dark:text-slate-200 block">
+                  <td className="p-4 border-r border-[#11110F]/20">
+                    <span className="font-mono font-bold text-[#11110F] uppercase block">
                       {anom.probable_cause}
                     </span>
-                    <span className="text-[11px] text-slate-500 truncate max-w-xs block">
+                    <span className="text-[10px] font-mono font-bold text-[#555550] truncate max-w-xs block mt-1 uppercase">
                       {anom.evidence_summary || "Telemetry evaluated"}
                     </span>
                   </td>
 
-                  <td className="p-4">
+                  <td className="p-4 border-r border-[#11110F]/20">
                     <div className="flex items-center gap-2">
-                      <span className="font-mono font-extrabold text-slate-900 dark:text-white text-sm">
+                      <span className="font-mono font-bold text-xl text-[#11110F]">
                         {anom.composite_score}
                       </span>
                       <StatusBadge status={anom.severity} type="severity" />
                     </div>
                   </td>
 
-                  <td className="p-4">
+                  <td className="p-4 border-r border-[#11110F]/20">
                     <StatusBadge status={anom.status} type="lifecycle" />
                   </td>
 
-                  <td className="p-4 font-mono font-bold text-slate-700 dark:text-slate-300">
-                    {anom.confidence}%
+                  <td className="p-4 border-r border-[#11110F]/20">
+                    <span className="font-mono font-bold text-[#FFFFFF] bg-[#FF5C5C] px-1 border border-[#11110F] uppercase">
+                      {anom.confidence}%
+                    </span>
                   </td>
 
-                  <td className="p-4 text-right">
+                  <td className="p-4 text-center">
                     <Link
                       to={`/anomalies/${anom.id}`}
-                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-sky-50 dark:bg-slate-800 text-sky-600 dark:text-cyan-400 hover:bg-sky-100 transition-colors"
+                      className="brutal-btn brutal-btn-primary px-3 py-2 text-[10px] whitespace-nowrap inline-flex items-center justify-center gap-2"
                     >
-                      <span>Diagnose</span>
+                      <span>DIAGNOSE</span>
                       <ArrowRight className="w-3 h-3" />
                     </Link>
                   </td>

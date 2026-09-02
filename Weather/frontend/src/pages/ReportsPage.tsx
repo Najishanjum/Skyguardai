@@ -7,21 +7,21 @@ export const ReportsPage: React.FC = () => {
       title: "Weather Trust Score & Integrity Audit Report",
       description: "Official summary of all multi-factor trust score evaluations, data freshness, and credibility indices.",
       icon: ShieldCheck,
-      color: "text-emerald-500 bg-emerald-100 dark:bg-emerald-950",
+      color: "bg-[#C8FF2E] text-[#11110F]",
       csvUrl: "http://localhost:8000/api/v1/reports/trust-scores/csv"
     },
     {
       title: "Comprehensive Anomaly Detection & Diagnosis Report",
       description: "Complete ledger of detected sensor glitches, rate-of-change jumps, and confirmed severe weather squalls.",
       icon: AlertTriangle,
-      color: "text-amber-500 bg-amber-100 dark:bg-amber-950",
+      color: "bg-[#FF5C5C] text-[#FFFFFF]",
       csvUrl: "http://localhost:8000/api/v1/reports/anomalies/csv"
     },
     {
       title: "Data Provenance & Observation Integrity Ledger",
       description: "Full cryptographic-style audit log verifying 100% preservation of raw sensor data across the 13-stage pipeline.",
       icon: FileText,
-      color: "text-sky-500 bg-sky-100 dark:bg-sky-950",
+      color: "bg-[#4057FF] text-[#FFFFFF]",
       csvUrl: "http://localhost:8000/api/v1/reports/audit-ledger/csv"
     }
   ];
@@ -31,10 +31,10 @@ export const ReportsPage: React.FC = () => {
       
       {/* Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-          Meteorological Reports & Data Export Center
+        <h1 className="text-3xl sm:text-4xl font-display uppercase tracking-tight text-[#11110F]">
+          METEOROLOGICAL REPORTS & DATA EXPORT CENTER
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm font-mono text-[#555550] uppercase mt-1">
           Export verified government reports, anomaly ledgers, and sensor health assessments in CSV and structured formats.
         </p>
       </div>
@@ -44,28 +44,28 @@ export const ReportsPage: React.FC = () => {
         {reports.map((rep, idx) => {
           const Icon = rep.icon;
           return (
-            <div key={idx} className="skyguard-card p-6 border rounded-2xl flex flex-col justify-between space-y-4">
+            <div key={idx} className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] p-6 flex flex-col justify-between space-y-4">
               <div>
-                <div className={`w-12 h-12 rounded-xl ${rep.color} flex items-center justify-center mb-4`}>
-                  <Icon className="w-6 h-6" />
+                <div className={`${rep.color} border-2 border-[#11110F] shadow-[2px_2px_0_#11110F] p-3 w-max mb-4`}>
+                  <Icon className="w-6 h-6 stroke-[2.5]" />
                 </div>
-                <h3 className="font-bold text-base text-slate-900 dark:text-white">
+                <h3 className="font-bold text-lg font-display uppercase tracking-wider text-[#11110F]">
                   {rep.title}
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                <p className="text-[10px] font-mono font-bold text-[#555550] uppercase mt-2 leading-relaxed">
                   {rep.description}
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+              <div className="pt-4 border-t-2 border-[#11110F]">
                 <a
                   href={rep.csvUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold bg-sky-500 hover:bg-sky-600 text-white shadow-sm transition-all"
+                  className="brutal-btn brutal-btn-primary w-full text-[10px] py-3"
                 >
                   <Download className="w-4 h-4" />
-                  <span>Download Verified CSV Report</span>
+                  <span>DOWNLOAD VERIFIED CSV REPORT</span>
                 </a>
               </div>
             </div>

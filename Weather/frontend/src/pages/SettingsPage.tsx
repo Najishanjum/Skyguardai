@@ -20,10 +20,10 @@ export const SettingsPage: React.FC = () => {
       
       {/* Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-          System & Model Configuration
+        <h1 className="text-3xl sm:text-4xl font-display uppercase tracking-tight text-[#11110F]">
+          SYSTEM & MODEL CONFIGURATION
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm font-mono text-[#555550] uppercase mt-1">
           Adjust live weather provider routing, polling rates, and AI threshold parameters.
         </p>
       </div>
@@ -31,14 +31,14 @@ export const SettingsPage: React.FC = () => {
       <form onSubmit={handleSave} className="space-y-6">
         
         {/* Weather Provider Configuration */}
-        <div className="skyguard-card p-6 border rounded-2xl space-y-4">
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
-            <Radio className="w-4 h-4 text-sky-500" />
-            <span>Meteorological Data Ingestion Providers</span>
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] p-6 space-y-4">
+          <h3 className="font-mono text-xs font-bold text-[#11110F] uppercase tracking-wider flex items-center gap-2 border-b-2 border-[#11110F] pb-3">
+            <Radio className="w-4 h-4 text-[#11110F]" />
+            <span>METEOROLOGICAL DATA INGESTION PROVIDERS</span>
           </h3>
 
-          <div className="space-y-3">
-            <label className="flex items-start gap-3 p-3.5 rounded-xl border border-sky-500/50 bg-sky-50/30 dark:bg-sky-950/20 cursor-pointer">
+          <div className="space-y-4 pt-2">
+            <label className={`flex items-start gap-3 p-4 border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] cursor-pointer transition-colors ${provider === 'open_meteo' ? 'bg-[#C8FF2E]' : 'bg-[#F4F1E8] hover:bg-[#C8FF2E]/20'}`}>
               <input
                 type="radio"
                 name="provider"
@@ -48,16 +48,16 @@ export const SettingsPage: React.FC = () => {
                 className="mt-1"
               />
               <div>
-                <span className="font-bold text-xs text-slate-900 dark:text-white block">
+                <span className="font-bold text-xs text-[#11110F] font-mono uppercase block">
                   Open-Meteo API (Primary Global Ingestion)
                 </span>
-                <span className="text-[11px] text-slate-500">
+                <span className="text-[10px] font-mono font-bold text-[#555550] uppercase mt-1 block">
                   Global high-resolution WMO-compliant meteorological model. Active (No key required).
                 </span>
               </div>
             </label>
 
-            <label className="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 cursor-pointer">
+            <label className={`flex items-start gap-3 p-4 border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] cursor-pointer transition-colors ${provider === 'imd' ? 'bg-[#C8FF2E]' : 'bg-[#F4F1E8] hover:bg-[#C8FF2E]/20'}`}>
               <input
                 type="radio"
                 name="provider"
@@ -67,16 +67,16 @@ export const SettingsPage: React.FC = () => {
                 className="mt-1"
               />
               <div>
-                <span className="font-bold text-xs text-slate-900 dark:text-white block">
+                <span className="font-bold text-xs text-[#11110F] font-mono uppercase block">
                   India Meteorological Department (IMD Official AWS)
                 </span>
-                <span className="text-[11px] text-slate-500">
+                <span className="text-[10px] font-mono font-bold text-[#555550] uppercase mt-1 block">
                   Direct official AWS access (Configurable via IMD_API_KEY / IMD_ENDPOINT).
                 </span>
               </div>
             </label>
 
-            <label className="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 cursor-pointer">
+            <label className={`flex items-start gap-3 p-4 border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] cursor-pointer transition-colors ${provider === 'open_weather' ? 'bg-[#C8FF2E]' : 'bg-[#F4F1E8] hover:bg-[#C8FF2E]/20'}`}>
               <input
                 type="radio"
                 name="provider"
@@ -86,10 +86,10 @@ export const SettingsPage: React.FC = () => {
                 className="mt-1"
               />
               <div>
-                <span className="font-bold text-xs text-slate-900 dark:text-white block">
+                <span className="font-bold text-xs text-[#11110F] font-mono uppercase block">
                   OpenWeatherMap API
                 </span>
-                <span className="text-[11px] text-slate-500">
+                <span className="text-[10px] font-mono font-bold text-[#555550] uppercase mt-1 block">
                   Secondary global provider (Configurable via OPENWEATHER_API_KEY).
                 </span>
               </div>
@@ -98,16 +98,16 @@ export const SettingsPage: React.FC = () => {
         </div>
 
         {/* AI & Polling Parameters */}
-        <div className="skyguard-card p-6 border rounded-2xl space-y-4">
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
-            <Sliders className="w-4 h-4 text-cyan-500" />
-            <span>AI Pipeline & Ingestion Polling Rates</span>
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] p-6 space-y-4">
+          <h3 className="font-mono text-xs font-bold text-[#11110F] uppercase tracking-wider flex items-center gap-2 border-b-2 border-[#11110F] pb-3">
+            <Sliders className="w-4 h-4 text-[#11110F]" />
+            <span>AI PIPELINE & INGESTION POLLING RATES</span>
           </h3>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
             <div>
-              <label className="text-xs font-bold text-slate-500 uppercase block mb-1.5">
-                Background Ingestion Interval (Seconds)
+              <label className="font-mono text-[10px] font-bold text-[#555550] uppercase block mb-1.5">
+                // BACKGROUND INGESTION INTERVAL (SECONDS)
               </label>
               <input
                 type="number"
@@ -115,13 +115,13 @@ export const SettingsPage: React.FC = () => {
                 onChange={(e) => setRefreshInterval(parseInt(e.target.value))}
                 min={10}
                 max={600}
-                className="w-full text-xs font-mono py-2 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                className="brutal-input w-full"
               />
             </div>
 
             <div>
-              <label className="text-xs font-bold text-slate-500 uppercase block mb-1.5">
-                Consensus Self-Healing Threshold (% Agreement)
+              <label className="font-mono text-[10px] font-bold text-[#555550] uppercase block mb-1.5">
+                // CONSENSUS SELF-HEALING THRESHOLD (% AGREEMENT)
               </label>
               <input
                 type="number"
@@ -129,7 +129,7 @@ export const SettingsPage: React.FC = () => {
                 onChange={(e) => setConsensusThreshold(parseInt(e.target.value))}
                 min={60}
                 max={99}
-                className="w-full text-xs font-mono py-2 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                className="brutal-input w-full"
               />
             </div>
           </div>
@@ -138,17 +138,17 @@ export const SettingsPage: React.FC = () => {
         {/* Save Button */}
         <div className="flex items-center justify-between pt-2">
           {saved ? (
-            <span className="flex items-center gap-1.5 text-xs font-bold text-emerald-500">
-              <CheckCircle2 className="w-4 h-4" />
-              <span>Settings synchronized successfully!</span>
+            <span className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#11110F] uppercase tracking-wider bg-[#C8FF2E] px-3 py-1.5 border-2 border-[#11110F] shadow-[3px_3px_0_#11110F]">
+              <CheckCircle2 className="w-4 h-4 text-[#11110F]" />
+              <span>SETTINGS SYNCHRONIZED SUCCESSFULLY!</span>
             </span>
           ) : <div />}
 
           <button
             type="submit"
-            className="px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-sky-500 hover:bg-sky-600 text-white shadow-sm transition-all"
+            className="brutal-btn brutal-btn-primary px-6 py-3 text-xs"
           >
-            Save Configurations
+            <span>SAVE CONFIGURATIONS</span>
           </button>
         </div>
 

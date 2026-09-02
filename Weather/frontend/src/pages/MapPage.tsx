@@ -56,26 +56,26 @@ export const MapPage: React.FC = () => {
     <div className="space-y-6 pb-12">
       
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-[#11110F] pb-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            AWS Geospatial Network Map
+          <h1 className="text-3xl sm:text-4xl font-display uppercase tracking-tight text-[#11110F]">
+            AWS GEOSPATIAL NETWORK MAP
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm font-mono text-[#555550] uppercase mt-1">
             Real-time geospatial visualization of Indian and Global Automatic Weather Stations (AWS).
           </p>
         </div>
 
         {/* Filter Pills */}
-        <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+        <div className="flex flex-wrap items-center gap-2 p-2 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F]">
           {['ALL', 'NORMAL', 'WATCH', 'HIGH', 'CRITICAL'].map((st) => (
             <button
               key={st}
               onClick={() => setFilterStatus(st)}
-              className={`px-3 py-1 text-xs font-semibold rounded-lg transition-all ${
+              className={`px-3 py-1 text-[10px] font-mono font-bold uppercase transition-all ${
                 filterStatus === st
-                  ? 'bg-white dark:bg-slate-700 text-sky-600 dark:text-cyan-400 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+                  ? 'bg-[#C8FF2E] text-[#11110F] border border-[#11110F] shadow-[2px_2px_0_#11110F]'
+                  : 'text-[#555550] hover:text-[#11110F] hover:bg-[#11110F]/5'
               }`}
             >
               {st}
@@ -85,10 +85,10 @@ export const MapPage: React.FC = () => {
       </div>
 
       {/* Map Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 pt-2">
         
         {/* Leaflet Map Canvas */}
-        <div className="lg:col-span-3 skyguard-card border rounded-2xl overflow-hidden h-[540px] z-10 relative">
+        <div className="lg:col-span-3 bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] h-[540px] z-10 relative">
           <MapContainer
             center={[22.5937, 78.9629]}
             zoom={5}
@@ -128,65 +128,65 @@ export const MapPage: React.FC = () => {
 
         {/* Selected Station Telemetry Card */}
         <div className="space-y-4">
-          <div className="skyguard-card p-5 border rounded-2xl">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
-              Station Quick Inspector
+          <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] p-5">
+            <h3 className="font-mono text-xs font-bold text-[#11110F] uppercase tracking-wider mb-3 border-b-2 border-[#11110F] pb-2">
+              // STATION QUICK INSPECTOR
             </h3>
 
             {selectedStation ? (
-              <div className="space-y-4">
+              <div className="space-y-5">
                 <div>
                   <div className="flex items-center gap-2">
-                    <Radio className="w-4 h-4 text-sky-500" />
-                    <h4 className="font-bold text-base text-slate-900 dark:text-white">
+                    <Radio className="w-4 h-4 text-[#11110F]" />
+                    <h4 className="font-bold text-lg font-display uppercase text-[#11110F]">
                       {selectedStation.station_name}
                     </h4>
                   </div>
-                  <p className="text-xs text-slate-500 mt-0.5">
+                  <p className="text-[10px] font-mono font-bold text-[#555550] uppercase mt-0.5 block">
                     {selectedStation.state}, {selectedStation.country}
                   </p>
                 </div>
 
                 <div className="flex items-center justify-between">
                   <StatusBadge status={selectedStation.anomaly_status} type="lifecycle" />
-                  <span className="text-xs font-bold text-sky-600 dark:text-cyan-400 font-mono">
+                  <span className="text-[10px] font-bold text-[#11110F] bg-[#C8FF2E] px-1 border border-[#11110F] font-mono shadow-[1px_1px_0_#11110F]">
                     {selectedStation.latitude.toFixed(2)}°N, {selectedStation.longitude.toFixed(2)}°E
                   </span>
                 </div>
 
-                <div className="space-y-2 py-3 border-y border-slate-100 dark:border-slate-800 text-xs font-mono">
+                <div className="space-y-3 py-4 border-y-2 border-[#11110F] text-[10px] font-mono font-bold uppercase">
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Temperature</span>
-                    <span className="font-bold text-slate-900 dark:text-white">{selectedStation.temperature}°C</span>
+                    <span className="text-[#555550]">TEMPERATURE</span>
+                    <span className="text-[#11110F] text-xs">{selectedStation.temperature}°C</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Atm. Pressure</span>
-                    <span className="font-bold text-slate-900 dark:text-white">{selectedStation.pressure} hPa</span>
+                    <span className="text-[#555550]">ATM. PRESSURE</span>
+                    <span className="text-[#11110F] text-xs">{selectedStation.pressure} hPa</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Rel. Humidity</span>
-                    <span className="font-bold text-slate-900 dark:text-white">{selectedStation.humidity}%</span>
+                    <span className="text-[#555550]">REL. HUMIDITY</span>
+                    <span className="text-[#11110F] text-xs">{selectedStation.humidity}%</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Data Freshness</span>
-                    <span className="font-bold text-slate-900 dark:text-white">{selectedStation.data_age_seconds}s</span>
+                    <span className="text-[#555550]">DATA FRESHNESS</span>
+                    <span className="text-[#11110F] text-xs">{selectedStation.data_age_seconds}s</span>
                   </div>
                 </div>
 
                 <div>
-                  <span className="text-xs font-bold text-slate-400 block mb-1">Weather Trust Score</span>
-                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-between">
-                    <span className="text-xl font-extrabold font-mono text-slate-900 dark:text-cyan-400">
+                  <span className="text-[10px] font-mono font-bold text-[#555550] uppercase block mb-2">WEATHER TRUST SCORE</span>
+                  <div className="p-3 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[2px_2px_0_#11110F] flex items-center justify-between">
+                    <span className="text-xl font-display text-[#11110F]">
                       {selectedStation.trust_score}/100
                     </span>
-                    <span className="text-xs font-bold uppercase text-emerald-500">
+                    <span className="text-[10px] font-bold font-mono border border-[#11110F] bg-[#FFFFFF] px-1 uppercase text-[#11110F]">
                       {selectedStation.trust_category}
                     </span>
                   </div>
                 </div>
               </div>
             ) : (
-              <p className="text-xs text-slate-500">Click a marker on the map to inspect telemetry.</p>
+              <p className="text-[10px] font-mono font-bold text-[#555550] uppercase">CLICK A MARKER ON THE MAP TO INSPECT TELEMETRY.</p>
             )}
           </div>
         </div>

@@ -1,6 +1,6 @@
 import logging
 from datetime import datetime, timezone
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Tuple
 import httpx
 from app.core.config import settings
 from app.services.weather.base import WeatherProvider, WeatherObservation
@@ -11,6 +11,8 @@ class OpenMeteoProvider(WeatherProvider):
     def __init__(self):
         self.base_url = settings.OPENMETEO_BASE_URL
         self.geocoding_url = settings.OPENMETEO_GEOCODING_URL
+        self._search_cache: Dict[str, Tuple[List[Dict[str, Any]], datetime]] = {}
+        self._search_cache_ttl = 300  # 5 minutes cache for fast search responses
 
     async def get_current_weather(self, latitude: float, longitude: float) -> WeatherObservation:
         params = {
@@ -50,6 +52,13 @@ class OpenMeteoProvider(WeatherProvider):
             raise
 
     async def search_locations(self, query: str) -> List[Dict[str, Any]]:
+        clean_q = query.strip().lower()
+        now = datetime.now(timezone.utc)
+        if clean_q in self._search_cache:
+            cached_data, cached_time = self._search_cache[clean_q]
+            if (now - cached_time).total_seconds() < self._search_cache_ttl:
+                return cached_data
+
         params = {
             "name": query,
             "count": 10,
@@ -63,7 +72,7 @@ class OpenMeteoProvider(WeatherProvider):
                 data = response.json()
                 results = data.get("results", [])
                 
-                return [
+                res = [
                     {
                         "name": item.get("name"),
                         "latitude": item.get("latitude"),
@@ -74,6 +83,8 @@ class OpenMeteoProvider(WeatherProvider):
                     }
                     for item in results
                 ]
+                self._search_cache[clean_q] = (res, now)
+                return res
         except Exception as e:
             logger.error(f"Geocoding search failed for query '{query}': {e}")
             return []

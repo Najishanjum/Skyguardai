@@ -18,68 +18,68 @@ export const SensorHealthPage: React.FC = () => {
       
       {/* Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-          Sensor Health & Transducer Reliability Matrix
+        <h1 className="text-3xl sm:text-4xl font-display uppercase tracking-tight text-[#11110F]">
+          SENSOR HEALTH & TRANSDUCER RELIABILITY MATRIX
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm font-mono text-[#555550] uppercase mt-1">
           Dynamic transducer physical health degradation tracking, drift detection & failure prediction across all AWS nodes.
         </p>
       </div>
 
       {/* Grid of Station Health Matrix */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         {matrix.map((stn) => (
-          <div key={stn.station_id} className="skyguard-card p-5 border rounded-2xl space-y-4">
+          <div key={stn.station_id} className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] p-5 space-y-5">
             
-            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+            <div className="flex items-center justify-between border-b-2 border-[#11110F] pb-3">
               <div>
-                <h3 className="font-bold text-sm text-slate-900 dark:text-white truncate">
+                <h3 className="font-bold text-lg text-[#11110F] font-display uppercase truncate">
                   {stn.station_name}
                 </h3>
-                <span className="text-[11px] font-mono text-slate-400">
+                <span className="text-[10px] font-mono font-bold text-[#555550] uppercase mt-1 block">
                   {stn.station_code} • {stn.state}
                 </span>
               </div>
-              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
+              <span className={`text-[11px] font-bold font-mono px-2 py-0.5 border border-[#11110F] shadow-[2px_2px_0_#11110F] ${
                 stn.overall_status === 'HEALTHY' 
-                  ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400' 
-                  : 'bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-400'
+                  ? 'bg-[#C8FF2E] text-[#11110F]' 
+                  : 'bg-[#FF5C5C] text-[#11110F]'
               }`}>
                 {stn.overall_status}
               </span>
             </div>
 
             {/* Individual Sensors Health */}
-            <div className="space-y-3">
+            <div className="space-y-4">
               {['TEMPERATURE', 'PRESSURE', 'HUMIDITY'].map((stype) => {
                 const sData = stn.sensors?.[stype] || { score: 95, risk: 'LOW', degradation: 0.1 };
                 const score = Math.round(sData.score);
                 
-                let barColor = 'bg-emerald-500';
-                if (score < 50) barColor = 'bg-rose-500';
-                else if (score < 80) barColor = 'bg-amber-500';
+                let barColor = 'bg-[#C8FF2E]';
+                if (score < 50) barColor = 'bg-[#FF5C5C]';
+                else if (score < 80) barColor = 'bg-[#4057FF]';
 
                 return (
-                  <div key={stype} className="space-y-1">
+                  <div key={stype} className="space-y-1.5">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-semibold text-slate-700 dark:text-slate-300">
+                      <span className="font-bold text-[#11110F] font-mono uppercase">
                         {stype === 'TEMPERATURE' ? 'PT100 Temperature Probe' : (stype === 'PRESSURE' ? 'Barometric Transducer' : 'Capacitive Hygrometer')}
                       </span>
-                      <span className="font-mono font-bold text-slate-900 dark:text-white">
+                      <span className="font-mono font-bold text-[#11110F]">
                         {score}%
                       </span>
                     </div>
 
-                    <div className="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                    <div className="w-full bg-[#F4F1E8] h-3 border-2 border-[#11110F]">
                       <div
-                        className={`${barColor} h-full rounded-full transition-all duration-500`}
+                        className={`${barColor} h-full border-r-2 border-[#11110F] transition-all duration-500`}
                         style={{ width: `${score}%` }}
                       />
                     </div>
 
-                    <div className="flex justify-between text-[10px] text-slate-400 font-mono pt-0.5">
-                      <span>Risk: <strong>{sData.risk}</strong></span>
-                      <span>Degradation: {sData.degradation} pts/wk</span>
+                    <div className="flex justify-between text-[10px] text-[#555550] font-mono font-bold pt-0.5 uppercase">
+                      <span>RISK: <strong className="text-[#11110F]">{sData.risk}</strong></span>
+                      <span>DEGRADATION: {sData.degradation} PTS/WK</span>
                     </div>
                   </div>
                 );

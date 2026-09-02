@@ -46,15 +46,24 @@
     background-color: #F4F1E8;
     background-image: radial-gradient(#11110F 0.8px, transparent 0.8px);
     background-size: 24px 24px;
+    background-attachment: fixed;
     color: #11110F;
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, .font-display {
     font-family: 'Anton', sans-serif;
     letter-spacing: 0.03em;
     text-transform: uppercase;
+  }
+
+  /* GPU-accelerate images for smoother loading */
+  img, video {
+    content-visibility: auto;
   }
 }
 
@@ -79,11 +88,13 @@
   background-color: #FFFFFF;
   border: 2px solid #11110F;
   box-shadow: 5px 5px 0 #11110F;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, box-shadow;
+  contain: layout style;
 }
 
 .brutal-card:hover {
-  transform: translate(-3px, -3px);
+  transform: translate3d(-3px, -3px, 0);
   box-shadow: 8px 8px 0 #11110F;
 }
 
@@ -91,11 +102,13 @@
   background-color: #F4F1E8;
   border: 2px solid #11110F;
   box-shadow: 5px 5px 0 #11110F;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, box-shadow;
+  contain: layout style;
 }
 
 .brutal-card-paper:hover {
-  transform: translate(-3px, -3px);
+  transform: translate3d(-3px, -3px, 0);
   box-shadow: 8px 8px 0 #11110F;
 }
 
@@ -111,18 +124,19 @@
   padding: 10px 18px;
   border: 2px solid #11110F;
   box-shadow: 5px 5px 0 #11110F;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.15s cubic-bezier(0.22, 1, 0.36, 1);
   cursor: pointer;
   border-radius: 2px;
+  will-change: transform, box-shadow;
 }
 
 .brutal-btn:hover {
-  transform: translate(-2px, -2px);
+  transform: translate3d(-2px, -2px, 0);
   box-shadow: 7px 7px 0 #11110F;
 }
 
 .brutal-btn:active {
-  transform: translate(2px, 2px);
+  transform: translate3d(2px, 2px, 0);
   box-shadow: 2px 2px 0 #11110F;
 }
 
@@ -200,11 +214,13 @@
   border: 2px solid #11110F;
   box-shadow: 5px 5px 0 #11110F;
   border-radius: 2px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, box-shadow;
+  contain: layout style;
 }
 
 .skyguard-card:hover {
-  transform: translate(-3px, -3px);
+  transform: translate3d(-3px, -3px, 0);
   box-shadow: 8px 8px 0 #11110F;
 }
 
@@ -215,7 +231,7 @@
 }
 
 .dark .skyguard-card:hover {
-  transform: translate(-3px, -3px);
+  transform: translate3d(-3px, -3px, 0);
   box-shadow: 8px 8px 0 #11110F;
 }
 

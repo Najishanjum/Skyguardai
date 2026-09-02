@@ -44,77 +44,77 @@ export const StationDetailPage: React.FC = () => {
     <div className="space-y-6 pb-12">
       
       {/* Back button & Station Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-[#11110F] pb-4">
         <div className="flex items-center gap-3">
           <Link
             to="/stations"
-            className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
+            className="brutal-btn brutal-btn-tertiary px-2 py-2"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              <h1 className="text-3xl sm:text-4xl font-display uppercase tracking-tight text-[#11110F]">
                 {station.station_name}
               </h1>
               <StatusBadge status={station.status} type="severity" />
             </div>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Code: <span className="font-mono font-bold text-sky-600 dark:text-cyan-400">{station.station_code}</span> • {station.state}, {station.country} • Elevation: {station.elevation}m
+            <p className="text-[10px] font-mono font-bold text-[#555550] uppercase mt-0.5 block">
+              CODE: <span className="bg-[#C8FF2E] px-1 text-[#11110F] border border-[#11110F]">{station.station_code}</span> • {station.state}, {station.country} • ELEVATION: {station.elevation}m
             </p>
           </div>
         </div>
 
         <Link
           to={`/simulation?station_id=${station.id}`}
-          className="px-4 py-2 text-xs font-bold rounded-xl bg-sky-500 hover:bg-sky-600 text-white shadow-sm transition-all"
+          className="brutal-btn brutal-btn-secondary text-[10px] px-4 py-2"
         >
-          Simulate Fault on this Station
+          <span>SIMULATE FAULT ON THIS STATION</span>
         </Link>
       </div>
 
       {/* Current Observations Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-        <div className="skyguard-card p-4 border rounded-2xl flex items-center gap-3">
-          <div className="p-3 rounded-xl bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400">
-            <Thermometer className="w-6 h-6" />
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-4 flex items-center gap-3">
+          <div className="p-2 border-2 border-[#11110F] shadow-[2px_2px_0_#11110F] bg-[#F4F1E8] text-[#11110F]">
+            <Thermometer className="w-6 h-6 stroke-[2]" />
           </div>
           <div>
-            <span className="text-[11px] font-bold text-slate-400 uppercase">Temperature</span>
-            <span className="block text-2xl font-extrabold font-mono text-slate-900 dark:text-white mt-0.5">
+            <span className="text-[10px] font-bold text-[#555550] uppercase block">TEMPERATURE</span>
+            <span className="block text-2xl font-display text-[#11110F] mt-1">
               {station.latest_reading?.temperature !== null ? `${station.latest_reading?.temperature}°C` : "--"}
             </span>
           </div>
         </div>
 
-        <div className="skyguard-card p-4 border rounded-2xl flex items-center gap-3">
-          <div className="p-3 rounded-xl bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-400">
-            <Gauge className="w-6 h-6" />
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-4 flex items-center gap-3">
+          <div className="p-2 border-2 border-[#11110F] shadow-[2px_2px_0_#11110F] bg-[#F4F1E8] text-[#11110F]">
+            <Gauge className="w-6 h-6 stroke-[2]" />
           </div>
           <div>
-            <span className="text-[11px] font-bold text-slate-400 uppercase">Atm. Pressure</span>
-            <span className="block text-2xl font-extrabold font-mono text-slate-900 dark:text-white mt-0.5">
+            <span className="text-[10px] font-bold text-[#555550] uppercase block">ATM. PRESSURE</span>
+            <span className="block text-2xl font-display text-[#11110F] mt-1">
               {station.latest_reading?.pressure !== null ? `${station.latest_reading?.pressure} hPa` : "--"}
             </span>
           </div>
         </div>
 
-        <div className="skyguard-card p-4 border rounded-2xl flex items-center gap-3">
-          <div className="p-3 rounded-xl bg-cyan-100 dark:bg-cyan-950 text-cyan-600 dark:text-cyan-400">
-            <Droplets className="w-6 h-6" />
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-4 flex items-center gap-3">
+          <div className="p-2 border-2 border-[#11110F] shadow-[2px_2px_0_#11110F] bg-[#F4F1E8] text-[#11110F]">
+            <Droplets className="w-6 h-6 stroke-[2]" />
           </div>
           <div>
-            <span className="text-[11px] font-bold text-slate-400 uppercase">Relative Humidity</span>
-            <span className="block text-2xl font-extrabold font-mono text-slate-900 dark:text-white mt-0.5">
+            <span className="text-[10px] font-bold text-[#555550] uppercase block">RELATIVE HUMIDITY</span>
+            <span className="block text-2xl font-display text-[#11110F] mt-1">
               {station.latest_reading?.humidity !== null ? `${station.latest_reading?.humidity}%` : "--"}
             </span>
           </div>
         </div>
 
-        <div className="skyguard-card p-4 border rounded-2xl flex items-center justify-between">
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-4 flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-bold text-slate-400 uppercase">Weather Trust</span>
-            <span className="block text-2xl font-extrabold font-mono text-slate-900 dark:text-cyan-400 mt-0.5">
+            <span className="text-[10px] font-bold text-[#555550] uppercase block">WEATHER TRUST</span>
+            <span className="block text-2xl font-display text-[#11110F] mt-1">
               {station.latest_trust_score || 98}/100
             </span>
           </div>
@@ -123,26 +123,28 @@ export const StationDetailPage: React.FC = () => {
       </div>
 
       {/* Historical Telemetry Chart */}
-      <div className="skyguard-card p-5 border rounded-2xl">
-        <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">
-          Time-Series Observation Telemetry
+      <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[7px_7px_0_#11110F] p-5">
+        <h3 className="font-mono text-xs font-bold text-[#11110F] uppercase tracking-wider mb-4 border-b-2 border-[#11110F] pb-3">
+          // TIME-SERIES OBSERVATION TELEMETRY
         </h3>
         <div className="h-72 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={series} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.2} />
-              <XAxis dataKey="timestamp" stroke="#64748B" fontSize={11} />
-              <YAxis stroke="#64748B" fontSize={11} />
+              <CartesianGrid strokeDasharray="2 2" stroke="#11110F" opacity={0.15} />
+              <XAxis dataKey="timestamp" stroke="#11110F" fontSize={10} fontStyle="bold" />
+              <YAxis stroke="#11110F" fontSize={10} fontStyle="bold" domain={['auto', 'auto']} />
               <Tooltip 
                 contentStyle={{ 
-                  backgroundColor: '#1E293B', 
-                  borderColor: '#334155', 
-                  borderRadius: '0.75rem',
-                  color: '#F8FAFC' 
+                  backgroundColor: '#11110F', 
+                  borderColor: '#11110F', 
+                  borderRadius: '0px',
+                  color: '#C8FF2E',
+                  fontSize: '12px',
+                  fontFamily: 'Space Mono'
                 }} 
               />
-              <Area type="monotone" dataKey="temperature" name="Temp (°C)" stroke="#0EA5E9" fill="#0EA5E9" fillOpacity={0.2} />
-              <Area type="monotone" dataKey="humidity" name="Humidity (%)" stroke="#06B6D4" fill="#06B6D4" fillOpacity={0.1} />
+              <Area type="monotone" dataKey="temperature" name="Temp (°C)" stroke="#11110F" strokeWidth={2.5} fill="#C8FF2E" fillOpacity={0.7} />
+              <Area type="monotone" dataKey="humidity" name="Humidity (%)" stroke="#FF5C5C" strokeWidth={2} fill="#FF5C5C" fillOpacity={0.3} />
             </AreaChart>
           </ResponsiveContainer>
         </div>

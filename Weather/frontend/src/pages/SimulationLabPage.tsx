@@ -52,35 +52,35 @@ export const SimulationLabPage: React.FC = () => {
       
       {/* Header */}
       <div>
-        <div className="flex items-center gap-2">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        <div className="flex flex-wrap items-center gap-3">
+          <h1 className="text-3xl sm:text-4xl font-display uppercase tracking-tight text-[#11110F]">
             AI Simulation & Fault Injection Lab
           </h1>
-          <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-800">
-            🟣 SIMULATED AWS DATA
+          <span className="text-xs font-mono font-bold px-2.5 py-0.5 bg-[#4057FF] text-[#FFFFFF] border-2 border-[#11110F] shadow-[2px_2px_0_#11110F] uppercase">
+            // SIMULATED AWS DATA
           </span>
         </div>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm font-mono text-[#555550] uppercase mt-2">
           Inject realistic hardware failures, sensor calibration drifts, and genuine severe weather squalls to observe real-time AI pipeline execution without physical hardware.
         </p>
       </div>
 
       {/* Control Panel */}
-      <div className="skyguard-card p-6 border rounded-2xl space-y-6">
-        <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
-          <FlaskConical className="w-4 h-4 text-purple-500" />
-          <span>Configure Anomaly Scenario</span>
+      <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] p-6 space-y-6">
+        <h3 className="font-mono text-xs font-bold text-[#11110F] uppercase tracking-wider flex items-center gap-2 border-b-2 border-[#11110F] pb-3">
+          <FlaskConical className="w-4 h-4 text-[#11110F]" />
+          <span>CONFIGURE ANOMALY SCENARIO</span>
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="text-xs font-bold text-slate-500 uppercase block mb-1.5">
-              Target AWS Station
+            <label className="font-mono text-[10px] font-bold text-[#555550] uppercase block mb-1.5">
+              // TARGET AWS STATION
             </label>
             <select
               value={selectedStationId}
               onChange={(e) => setSelectedStationId(parseInt(e.target.value))}
-              className="w-full text-xs font-semibold py-2.5 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500"
+              className="brutal-input w-full font-bold uppercase py-2.5 px-3 cursor-pointer"
             >
               {stations.map((s) => (
                 <option key={s.id} value={s.id}>
@@ -91,13 +91,13 @@ export const SimulationLabPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="text-xs font-bold text-slate-500 uppercase block mb-1.5">
-              Fault / Atmospheric Scenario Preset
+            <label className="font-mono text-[10px] font-bold text-[#555550] uppercase block mb-1.5">
+              // FAULT / ATMOSPHERIC SCENARIO PRESET
             </label>
             <select
               value={selectedScenario}
               onChange={(e) => setSelectedScenario(e.target.value)}
-              className="w-full text-xs font-semibold py-2.5 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-purple-500"
+              className="brutal-input w-full font-bold uppercase py-2.5 px-3 cursor-pointer"
             >
               {scenarios.map((sc) => (
                 <option key={sc.id} value={sc.id}>
@@ -110,15 +110,15 @@ export const SimulationLabPage: React.FC = () => {
 
         {/* Selected Scenario Preview */}
         {scenarios.find(s => s.id === selectedScenario) && (
-          <div className="p-4 rounded-xl bg-purple-50/50 dark:bg-purple-950/20 border border-purple-200 dark:border-purple-900/50 space-y-1.5 text-xs">
-            <div className="font-bold text-purple-900 dark:text-purple-200">
+          <div className="p-4 border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] bg-[#F4F1E8] space-y-1.5 text-xs font-mono">
+            <div className="font-bold text-[#11110F] uppercase">
               {scenarios.find(s => s.id === selectedScenario)?.name}
             </div>
-            <p className="text-slate-600 dark:text-slate-300">
+            <p className="text-[#555550] uppercase">
               {scenarios.find(s => s.id === selectedScenario)?.description}
             </p>
-            <div className="text-[11px] text-slate-500 pt-1 font-mono">
-              Expected Pipeline Response: {scenarios.find(s => s.id === selectedScenario)?.expected_outcome}
+            <div className="text-[11px] font-bold text-[#11110F] pt-2 uppercase border-t-2 border-[#11110F]/10 mt-2 block">
+              EXPECTED PIPELINE RESPONSE: {scenarios.find(s => s.id === selectedScenario)?.expected_outcome}
             </div>
           </div>
         )}
@@ -127,81 +127,81 @@ export const SimulationLabPage: React.FC = () => {
           <button
             onClick={handleInject}
             disabled={injecting}
-            className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-purple-600 to-indigo-600 hover:brightness-110 text-white shadow-md shadow-purple-500/20 transition-all"
+            className="brutal-btn brutal-btn-primary px-6 py-3 text-xs"
           >
             <Zap className="w-4 h-4" />
-            <span>{injecting ? "Injecting & Evaluating Pipeline..." : "Inject Simulated Fault Live"}</span>
+            <span>{injecting ? "INJECTING & EVALUATING PIPELINE..." : "INJECT SIMULATED FAULT LIVE"}</span>
           </button>
         </div>
       </div>
 
       {/* Live Pipeline Execution Output */}
       {pipelineResult && (
-        <div className="skyguard-card p-6 border-2 border-purple-500 dark:border-purple-400 rounded-2xl space-y-6">
-          <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[7px_7px_0_#11110F] p-6 space-y-6 mt-8">
+          <div className="flex flex-wrap items-center justify-between border-b-2 border-[#11110F] pb-4 gap-3">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-              <h2 className="text-base font-bold text-slate-900 dark:text-white">
-                Live Pipeline Execution Results (Zero Overwrite Guaranteed)
+              <CheckCircle2 className="w-6 h-6 text-[#11110F]" />
+              <h2 className="text-xl font-display uppercase tracking-wider text-[#11110F]">
+                LIVE PIPELINE EXECUTION RESULTS (ZERO OVERWRITE GUARANTEED)
               </h2>
             </div>
-            <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300">
+            <span className="text-xs font-mono font-bold px-2.5 py-0.5 bg-[#C8FF2E] text-[#11110F] border border-[#11110F] shadow-[2px_2px_0_#11110F] uppercase">
               {pipelineResult.station_name}
             </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 text-center">
-              <span className="text-[10px] font-bold text-slate-400 uppercase">Injected Observation</span>
-              <span className="block text-2xl font-extrabold font-mono text-slate-900 dark:text-white mt-1">
+            <div className="p-4 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] text-center">
+              <span className="text-[10px] font-mono font-bold text-[#555550] uppercase block">INJECTED OBSERVATION</span>
+              <span className="block text-2xl font-display text-[#11110F] mt-2">
                 {pipelineResult.temperature !== null ? `${pipelineResult.temperature}°C` : "NULL"}
               </span>
-              <span className="text-[10px] text-slate-400 font-mono">
+              <span className="text-[10px] text-[#11110F] font-mono font-bold mt-1 block uppercase">
                 {pipelineResult.pressure} hPa • {pipelineResult.humidity}% RH
               </span>
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 text-center">
-              <span className="text-[10px] font-bold text-slate-400 uppercase">AI Severity & Cause</span>
-              <span className="block text-sm font-bold text-slate-900 dark:text-white mt-1 truncate">
+            <div className="p-4 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] text-center">
+              <span className="text-[10px] font-mono font-bold text-[#555550] uppercase block">AI SEVERITY & CAUSE</span>
+              <span className="block text-xs font-mono font-bold text-[#11110F] uppercase mt-2 truncate">
                 {pipelineResult.root_cause}
               </span>
-              <div className="mt-1 flex items-center justify-center gap-1">
+              <div className="mt-2 flex items-center justify-center gap-1">
                 <StatusBadge status={pipelineResult.severity} type="severity" />
               </div>
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800 text-center">
-              <span className="text-[10px] font-bold text-slate-400 uppercase">Lifecycle Transition</span>
+            <div className="p-4 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] text-center">
+              <span className="text-[10px] font-mono font-bold text-[#555550] uppercase block">LIFECYCLE TRANSITION</span>
               <div className="mt-2">
                 <StatusBadge status={pipelineResult.anomaly_status} type="lifecycle" />
               </div>
-              <span className="text-[10px] text-slate-400 block mt-1">
-                {pipelineResult.diagnosis_confidence}% Diagnostic Conf.
+              <span className="text-[10px] font-mono font-bold text-[#11110F] block mt-2 uppercase">
+                {pipelineResult.diagnosis_confidence}% DIAGNOSTIC CONF.
               </span>
             </div>
 
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center bg-[#F4F1E8] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-4">
               <TrustMeter score={pipelineResult.trust_score} size="sm" />
             </div>
           </div>
 
           {/* Consensus Self-Healing Breakdown */}
           {pipelineResult.self_healing && Object.keys(pipelineResult.self_healing).length > 0 && (
-            <div className="p-4 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 space-y-2 text-xs">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-emerald-900 dark:text-emerald-300">
-                  ⭐ Tri-Model Consensus Self-Healing Output (USP 3)
+            <div className="p-4 bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] space-y-2 text-xs font-mono">
+              <div className="flex items-center justify-between border-b-2 border-[#11110F]/10 pb-2">
+                <span className="font-bold text-[#11110F] uppercase">
+                  ⭐ TRI-MODEL CONSENSUS SELF-HEALING OUTPUT (USP 3)
                 </span>
-                <span className="font-bold font-mono text-emerald-600">
-                  {pipelineResult.self_healing.temperature?.agreement_percent || 95}% Model Agreement
+                <span className="font-bold bg-[#C8FF2E] px-1 border border-[#11110F] text-[#11110F] uppercase">
+                  {pipelineResult.self_healing.temperature?.agreement_percent || 95}% MODEL AGREEMENT
                 </span>
               </div>
-              <p className="text-slate-600 dark:text-slate-300">
+              <p className="text-[#11110F] font-bold uppercase mt-2">
                 {pipelineResult.self_healing.temperature?.reason}
               </p>
-              <div className="font-mono pt-1 text-slate-500">
-                Raw Value: <strong className="text-rose-500">{pipelineResult.self_healing.temperature?.original_value}°C</strong> (Preserved) → Safe Estimate: <strong className="text-emerald-600">{pipelineResult.self_healing.temperature?.corrected_value}°C</strong>
+              <div className="font-mono pt-2 text-[#555550] font-bold uppercase">
+                RAW VALUE: <strong className="text-[#11110F] line-through bg-[#FF5C5C] px-1">{pipelineResult.self_healing.temperature?.original_value}°C</strong> (PRESERVED) → SAFE ESTIMATE: <strong className="text-[#11110F] bg-[#C8FF2E] px-1 border border-[#11110F]">{pipelineResult.self_healing.temperature?.corrected_value}°C</strong>
               </div>
             </div>
           )}

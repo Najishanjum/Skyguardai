@@ -57,23 +57,23 @@ export const AnomalyDetailPage: React.FC = () => {
     <div className="space-y-6 pb-12">
       
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-[#11110F] pb-4">
+        <div className="flex items-center gap-4">
           <Link
             to="/anomalies"
-            className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
+            className="p-2 bg-[#FFFFFF] border-2 border-[#11110F] hover:bg-[#F4F1E8] shadow-[2px_2px_0_#11110F] text-[#11110F]"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
           </Link>
           <div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                Anomaly Deep Dive #{anomaly.id}
+            <div className="flex flex-wrap items-center gap-3">
+              <h1 className="text-3xl sm:text-4xl font-display uppercase tracking-tight text-[#11110F]">
+                ANOMALY DEEP DIVE #{anomaly.id}
               </h1>
               <StatusBadge status={anomaly.status} type="lifecycle" />
             </div>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Station: <span className="font-bold text-slate-800 dark:text-slate-200">{station?.name}</span> ({station?.code}) • Triggered: {new Date(anomaly.timestamp).toLocaleString()}
+            <p className="text-[10px] font-mono font-bold text-[#555550] mt-1 block uppercase">
+              STATION: <strong className="text-[#11110F]">{station?.name}</strong> ({station?.code}) • TRIGGERED: {new Date(anomaly.timestamp).toLocaleString()}
             </p>
           </div>
         </div>
@@ -82,85 +82,91 @@ export const AnomalyDetailPage: React.FC = () => {
           <button
             onClick={handleResolve}
             disabled={resolving}
-            className="px-4 py-2 text-xs font-bold rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white transition-all shadow-sm flex items-center gap-1.5"
+            className="brutal-btn brutal-btn-primary px-4 py-3 text-[10px] flex items-center gap-1.5 uppercase"
           >
             <CheckCircle2 className="w-4 h-4" />
-            <span>{resolving ? "Resolving..." : "Mark Anomaly as Resolved"}</span>
+            <span>{resolving ? "RESOLVING..." : "MARK ANOMALY AS RESOLVED"}</span>
           </button>
         )}
       </div>
 
       {/* Overview Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="skyguard-card p-5 border rounded-2xl">
-          <span className="text-[11px] font-bold text-slate-400 uppercase block">Diagnosed Root Cause</span>
-          <span className="text-lg font-bold text-slate-900 dark:text-white mt-1 block">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2">
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-5">
+          <span className="text-[10px] font-mono font-bold text-[#555550] uppercase block border-b-2 border-[#11110F] pb-2 mb-3">
+            DIAGNOSED ROOT CAUSE
+          </span>
+          <span className="text-lg font-display uppercase text-[#11110F] block">
             {anomaly.probable_cause}
           </span>
-          <span className="text-xs font-bold text-emerald-500 font-mono mt-1 block">
-            {anomaly.confidence}% Confidence
+          <span className="text-[10px] font-mono font-bold text-[#FFFFFF] bg-[#FF5C5C] border border-[#11110F] px-1 mt-2 inline-block uppercase">
+            {anomaly.confidence}% CONFIDENCE
           </span>
         </div>
 
-        <div className="skyguard-card p-5 border rounded-2xl">
-          <span className="text-[11px] font-bold text-slate-400 uppercase block">Raw Ingested Values</span>
-          <div className="flex items-center gap-4 mt-1 font-mono text-sm font-bold text-slate-800 dark:text-slate-200">
-            <span>Temp: {observation?.temperature}°C</span>
-            <span>Pres: {observation?.pressure} hPa</span>
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-5">
+          <span className="text-[10px] font-mono font-bold text-[#555550] uppercase block border-b-2 border-[#11110F] pb-2 mb-3">
+            RAW INGESTED VALUES
+          </span>
+          <div className="flex flex-wrap items-center gap-4 font-mono text-sm font-bold text-[#11110F] uppercase">
+            <span>TEMP: {observation?.temperature}°C</span>
+            <span>PRES: {observation?.pressure} hPa</span>
             <span>RH: {observation?.humidity}%</span>
           </div>
-          <span className="text-[10px] text-emerald-500 mt-1 block">
-            ✓ 100% Immutable Raw Storage Preserved
+          <span className="text-[10px] font-bold font-mono bg-[#C8FF2E] text-[#11110F] border border-[#11110F] px-1 mt-3 inline-block uppercase">
+            ✓ 100% IMMUTABLE RAW STORAGE PRESERVED
           </span>
         </div>
 
-        <div className="skyguard-card p-5 border rounded-2xl">
-          <span className="text-[11px] font-bold text-slate-400 uppercase block">Hybrid AI Fusion Score</span>
-          <div className="flex items-center gap-2 mt-1">
-            <span className="text-2xl font-extrabold font-mono text-slate-900 dark:text-white">
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-5">
+          <span className="text-[10px] font-mono font-bold text-[#555550] uppercase block border-b-2 border-[#11110F] pb-2 mb-3">
+            HYBRID AI FUSION SCORE
+          </span>
+          <div className="flex items-center gap-3">
+            <span className="text-2xl font-display text-[#11110F]">
               {anomaly.composite_score}
             </span>
             <StatusBadge status={anomaly.severity} type="severity" />
           </div>
-          <span className="text-[11px] text-slate-400 mt-0.5 block">
-            Ensemble: QC ({anomaly.rule_score}%) + Stat ({anomaly.statistical_score}%) + ML ({anomaly.isolation_forest_score}%)
+          <span className="text-[10px] font-mono font-bold text-[#555550] mt-2 block uppercase">
+            ENSEMBLE: QC ({anomaly.rule_score}%) + STAT ({anomaly.statistical_score}%) + ML ({anomaly.isolation_forest_score}%)
           </span>
         </div>
       </div>
 
       {/* Adaptive Verification Timeline (USP 2) */}
-      <div className="skyguard-card p-5 border rounded-2xl space-y-3">
-        <div className="flex items-center gap-2">
-          <Clock className="w-5 h-5 text-sky-500" />
-          <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-            ⭐ Adaptive Evidence Verification Timeline (USP 2)
+      <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-5 space-y-4">
+        <div className="flex items-center gap-3">
+          <Clock className="w-5 h-5 text-[#11110F] stroke-[2.5]" />
+          <h3 className="text-lg font-display text-[#11110F] uppercase tracking-wider">
+            ⭐ ADAPTIVE EVIDENCE VERIFICATION TIMELINE (USP 2)
           </h3>
         </div>
-        <p className="text-xs text-slate-500">
+        <p className="text-[10px] font-mono font-bold text-[#555550] uppercase">
           The system gathers sequential evidentiary telemetry over multiple polling steps before committing to a final diagnosis.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
           {verification_timeline.length > 0 ? (
             verification_timeline.map((ev: any, i: number) => (
-              <div key={i} className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+              <div key={i} className="p-4 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[1px_1px_0_#11110F]">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-sky-600 dark:text-cyan-400 font-mono">
-                    Step {ev.step}
+                  <span className="text-[10px] font-bold text-[#11110F] font-mono uppercase bg-[#C8FF2E] border border-[#11110F] px-1">
+                    STEP {ev.step}
                   </span>
-                  <span className="text-[10px] text-slate-400">{new Date(ev.created_at).toLocaleTimeString()}</span>
+                  <span className="text-[10px] font-bold text-[#555550] uppercase">{new Date(ev.created_at).toLocaleTimeString()}</span>
                 </div>
-                <p className="mt-2 text-xs font-medium text-slate-800 dark:text-slate-200">
+                <p className="mt-3 text-[10px] font-mono font-bold text-[#11110F] uppercase">
                   {ev.note}
                 </p>
-                <div className="mt-2 text-[11px] font-mono text-slate-500">
-                  Divergence Index: {ev.divergence}
+                <div className="mt-3 text-[10px] font-mono font-bold text-[#555550] uppercase border-t-2 border-[#11110F]/20 pt-2">
+                  DIVERGENCE INDEX: {ev.divergence}
                 </div>
               </div>
             ))
           ) : (
-            <div className="col-span-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800 text-xs text-slate-500 text-center">
-              Single-cycle transient trigger recorded.
+            <div className="col-span-3 p-4 bg-[#F4F1E8] border-2 border-[#11110F] border-dashed text-[10px] font-mono font-bold text-[#555550] text-center uppercase">
+              SINGLE-CYCLE TRANSIENT TRIGGER RECORDED.
             </div>
           )}
         </div>
@@ -168,45 +174,45 @@ export const AnomalyDetailPage: React.FC = () => {
 
       {/* Consensus-Based Self-Healing Recovery (USP 3) */}
       {self_healing && self_healing.length > 0 && (
-        <div className="skyguard-card p-5 border rounded-2xl space-y-4">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-cyan-500" />
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-              ⭐ Consensus-Based Self-Healing Recovery (USP 3)
+        <div className="bg-[#FFFFFF] border-2 border-[#11110F] shadow-[3px_3px_0_#11110F] p-5 space-y-5">
+          <div className="flex items-center gap-3">
+            <Sparkles className="w-5 h-5 text-[#11110F] stroke-[2.5]" />
+            <h3 className="text-lg font-display text-[#11110F] uppercase tracking-wider">
+              ⭐ CONSENSUS-BASED SELF-HEALING RECOVERY (USP 3)
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-1 font-mono text-xs">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-1 font-mono">
             {self_healing.map((sh: any, idx: number) => (
               <React.Fragment key={idx}>
-                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border">
-                  <span className="text-[10px] font-bold text-slate-400 block uppercase">Model A: Temporal Lag</span>
-                  <span className="text-lg font-bold text-slate-900 dark:text-white mt-1 block">
+                <div className="p-4 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[1px_1px_0_#11110F]">
+                  <span className="text-[10px] font-mono font-bold text-[#555550] block uppercase">MODEL A: TEMPORAL LAG</span>
+                  <span className="text-lg font-display text-[#11110F] mt-1 block">
                     {sh.model_temporal}°C
                   </span>
                 </div>
 
-                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border">
-                  <span className="text-[10px] font-bold text-slate-400 block uppercase">Model B: Diurnal Baseline</span>
-                  <span className="text-lg font-bold text-slate-900 dark:text-white mt-1 block">
+                <div className="p-4 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[1px_1px_0_#11110F]">
+                  <span className="text-[10px] font-mono font-bold text-[#555550] block uppercase">MODEL B: DIURNAL BASELINE</span>
+                  <span className="text-lg font-display text-[#11110F] mt-1 block">
                     {sh.model_historical}°C
                   </span>
                 </div>
 
-                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border">
-                  <span className="text-[10px] font-bold text-slate-400 block uppercase">Model C: Multivariate</span>
-                  <span className="text-lg font-bold text-slate-900 dark:text-white mt-1 block">
+                <div className="p-4 bg-[#F4F1E8] border-2 border-[#11110F] shadow-[1px_1px_0_#11110F]">
+                  <span className="text-[10px] font-mono font-bold text-[#555550] block uppercase">MODEL C: MULTIVARIATE</span>
+                  <span className="text-lg font-display text-[#11110F] mt-1 block">
                     {sh.model_multivariate}°C
                   </span>
                 </div>
 
-                <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800">
-                  <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 block uppercase">Consensus Value</span>
-                  <span className="text-lg font-extrabold text-emerald-700 dark:text-emerald-300 mt-1 block">
+                <div className="p-4 bg-[#C8FF2E] border-2 border-[#11110F] shadow-[1px_1px_0_#11110F]">
+                  <span className="text-[10px] font-mono font-bold text-[#11110F] block uppercase">CONSENSUS VALUE</span>
+                  <span className="text-lg font-display text-[#11110F] mt-1 block">
                     {sh.corrected_value ? `${sh.corrected_value}°C` : "WITHHELD"}
                   </span>
-                  <span className="text-[10px] font-sans text-emerald-600 block mt-0.5">
-                    {sh.agreement_percent}% Model Agreement
+                  <span className="text-[10px] font-mono font-bold text-[#555550] block mt-2 uppercase border-t-2 border-[#11110F]/20 pt-2">
+                    {sh.agreement_percent}% MODEL AGREEMENT
                   </span>
                 </div>
               </React.Fragment>
