@@ -20,9 +20,9 @@ dist/
 */*/dist/
 
 # Transient root copies
-backend/
-frontend/
-tests/
+/backend/
+/frontend/
+/tests/
 
 # OS
 .DS_Store

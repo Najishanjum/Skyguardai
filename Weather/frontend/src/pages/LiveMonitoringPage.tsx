@@ -146,23 +146,23 @@ export const LiveMonitoringPage: React.FC = () => {
 
         {/* Search Results Dropdown */}
         {searchResults.length > 0 && (
-          <div className="absolute top-full left-0 right-0 z-30 mt-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl p-2 space-y-1 max-h-60 overflow-y-auto">
+          <div className="absolute top-full left-0 right-0 z-50 mt-1 bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] p-2 space-y-1 max-h-60 overflow-y-auto">
             {searchResults.map((res, i) => (
               <button
                 key={i}
                 onClick={() => handleSelectLocation(res)}
-                className="w-full text-left p-2.5 rounded-xl hover:bg-sky-50 dark:hover:bg-slate-800 flex items-center justify-between text-xs transition-colors"
+                className="w-full text-left p-2.5 hover:bg-[#C8FF2E] flex items-center justify-between text-xs transition-colors border border-transparent hover:border-[#11110F]"
               >
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-sky-500" />
-                  <span className="font-bold text-slate-900 dark:text-white">
+                  <MapPin className="w-3.5 h-3.5 text-[#11110F]" />
+                  <span className="font-bold text-[#11110F] uppercase">
                     {res.name}
                   </span>
-                  <span className="text-slate-500">
+                  <span className="text-[#555550] text-[11px] uppercase">
                     {res.admin1 ? `${res.admin1}, ` : ''}{res.country}
                   </span>
                 </div>
-                <span className="font-mono text-[10px] text-slate-400">
+                <span className="font-mono text-[10px] text-[#555550] hidden sm:inline">
                   {res.latitude.toFixed(2)}°N, {res.longitude.toFixed(2)}°E
                 </span>
               </button>

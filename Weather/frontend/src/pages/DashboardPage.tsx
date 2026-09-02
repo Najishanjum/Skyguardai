@@ -243,7 +243,7 @@ export const DashboardPage: React.FC = () => {
 
         {/* Live Search Suggestions Dropdown */}
         {searchResults.length > 0 && (
-          <div className="absolute top-full left-0 right-0 z-30 mt-1 bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] p-2 space-y-1 max-h-60 overflow-y-auto">
+          <div className="absolute top-full left-0 right-0 z-50 mt-1 bg-[#FFFFFF] border-2 border-[#11110F] shadow-[5px_5px_0_#11110F] p-2 space-y-1 max-h-60 overflow-y-auto">
             {searchResults.map((res, i) => (
               <button
                 key={i}
