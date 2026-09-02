@@ -1,0 +1,11 @@
+{
+  "name": "skyguard-ai",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "install:frontend": "cd Weather/frontend && npm install",
+    "build": "cd Weather/frontend && npm run build",
+    "dev": "cd Weather/frontend && npm run dev",
+    "preview": "cd Weather/frontend && npm run preview"
+  }
+}

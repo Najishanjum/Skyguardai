@@ -1,14 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "cd Weather/frontend && npm install",
+  "buildCommand": "cd Weather/frontend && npm run build",
+  "outputDirectory": "Weather/frontend/dist",
   "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "/api/:path*"
-    },
-    {
-      "source": "/ws/:path*",
-      "destination": "/ws/:path*"
-    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
