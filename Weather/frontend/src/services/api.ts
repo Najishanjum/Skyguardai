@@ -1,4 +1,16 @@
-const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || "http://localhost:8000/api/v1";
+const getApiBaseUrl = (): string => {
+  const envUrl = (import.meta as any).env?.VITE_API_URL;
+  if (envUrl) return envUrl;
+  if (typeof window !== 'undefined') {
+    const protocol = window.location.protocol;
+    const hostname = window.location.hostname;
+    // Connect to port 8000 on the same machine/host serving the web app
+    return `${protocol}//${hostname}:8000/api/v1`;
+  }
+  return "http://localhost:8000/api/v1";
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 class ApiService {
   private getHeaders(): HeadersInit {

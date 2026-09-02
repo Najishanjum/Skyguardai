@@ -5,6 +5,21 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [react()],
 
+  server: {
+    host: true, // Listen on all local IP addresses (0.0.0.0) so mobile phones can connect
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
+      },
+      '/ws': {
+        target: 'ws://127.0.0.1:8000',
+        ws: true,
+      },
+    },
+  },
+
   build: {
     // Target modern browsers for smaller output
     target: 'es2020',

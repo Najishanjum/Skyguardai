@@ -14,7 +14,18 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const wsRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
-    const wsUrl = (import.meta as any).env?.VITE_WS_URL || 'ws://localhost:8000/ws/live';
+    const getWsUrl = (): string => {
+      const envWs = (import.meta as any).env?.VITE_WS_URL;
+      if (envWs) return envWs;
+      if (typeof window !== 'undefined') {
+        const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const hostname = window.location.hostname;
+        return `${proto}//${hostname}:8000/ws/live`;
+      }
+      return 'ws://localhost:8000/ws/live';
+    };
+
+    const wsUrl = getWsUrl();
     let socket: WebSocket | null = null;
     let reconnectTimeout: any = null;
 
