@@ -698,35 +698,69 @@ class TelemetryEngine {
   }
 
   public async getAnomalyDeepDive(id: number): Promise<any> {
-    const anom = this.anomalies.find(a => a.id === id);
-    if (!anom) {
-      // Return a simulated deep dive
-      return {
-        id,
-        reading_id: 100 + id,
-        station_id: 1,
-        station_name: "Safdarjung Meteorological Observatory",
-        station_code: "AWS-DEL-01",
-        timestamp: new Date().toISOString(),
-        composite_score: 84.5,
-        severity: "CRITICAL",
-        status: "CONFIRMED_ANOMALY",
-        probable_cause: "Transient RTD Sensor Spike",
-        confidence: 96.2,
-        rule_score: 90.0,
-        statistical_score: 88.0,
-        isolation_forest_score: 82.0,
-        temporal_score: 94.0,
-        multivariate_score: 86.0,
-        evidence_summary: "Uncoupled thermal jump detected (+44°C) with nominal pressure/humidity. Reverted in cycle 2.",
-        readings: { temperature: 75.2, pressure: 1008.4, humidity: 64.0 },
-        evidence_steps: [
-          { step: 1, observation_divergence: 84.5, parameter: "temperature", note: "Thermal spike triggered under adaptive verification." },
-          { step: 2, observation_divergence: 4.2, parameter: "temperature", note: "Transient impulse normalized to baseline (31.2°C). Sensor glitch confirmed." }
-        ]
-      };
-    }
-    return anom;
+    const anom = this.anomalies.find(a => a.id === id) || this.anomalies[0];
+    const anomId = anom ? anom.id : id;
+    const stationId = anom ? anom.station_id : 1;
+    const stationName = anom ? anom.station_name : "Safdarjung Meteorological Observatory";
+    const stationCode = anom ? anom.station_code : "AWS-DEL-01";
+    const cause = anom ? anom.probable_cause : "Transient RTD Sensor Spike";
+
+    return {
+      anomaly: {
+        id: anomId,
+        reading_id: 100 + anomId,
+        station_id: stationId,
+        station_name: stationName,
+        station_code: stationCode,
+        timestamp: anom ? anom.timestamp : new Date().toISOString(),
+        composite_score: anom ? anom.composite_score : 84.5,
+        severity: anom ? anom.severity : "CRITICAL",
+        status: anom ? anom.status : "CONFIRMED_ANOMALY",
+        probable_cause: cause,
+        confidence: anom ? anom.confidence : 96.2,
+        rule_score: anom ? anom.rule_score : 90.0,
+        statistical_score: anom ? anom.statistical_score : 88.0,
+        isolation_forest_score: anom ? anom.isolation_forest_score : 82.0,
+        temporal_score: anom ? anom.temporal_score : 94.0,
+        multivariate_score: anom ? anom.multivariate_score : 86.0,
+        evidence_summary: anom ? anom.evidence_summary : "Uncoupled thermal jump detected (+44°C) with nominal pressure/humidity. Reverted in cycle 2."
+      },
+      station: {
+        id: stationId,
+        code: stationCode,
+        name: stationName,
+        state: "Delhi NCR",
+        latitude: 28.585,
+        longitude: 77.206
+      },
+      observation: {
+        temperature: 75.2,
+        pressure: 1008.4,
+        humidity: 64.0,
+        provider: "AWS IMD Primary Ingest"
+      },
+      verification_timeline: [
+        { step: 1, divergence: 84.5, note: "Thermal spike triggered under adaptive verification.", created_at: new Date(Date.now() - 120000).toISOString() },
+        { step: 2, divergence: 4.2, note: "Transient impulse normalized to baseline (31.2°C). Sensor glitch confirmed.", created_at: new Date(Date.now() - 60000).toISOString() }
+      ],
+      self_healing: [
+        {
+          parameter: "temperature",
+          original_value: 75.2,
+          corrected_value: 31.2,
+          model_temporal: 31.2,
+          model_temporal_estimate: 31.2,
+          model_historical: 31.0,
+          model_historical_estimate: 31.0,
+          model_multivariate: 31.4,
+          model_multivariate_estimate: 31.4,
+          agreement_percent: 96.2,
+          model_agreement_percent: 96.2,
+          status: "SAFE_ESTIMATE",
+          reason: "Tri-model consensus achieved (96.2% agreement). Raw observation stored immutably."
+        }
+      ]
+    };
   }
 
   public async resolveAnomaly(id: number): Promise<any> {
@@ -761,13 +795,35 @@ class TelemetryEngine {
     return { status: "success" };
   }
 
+  public async createTestAlert(payload?: Partial<MaintenanceAlertRecord>): Promise<MaintenanceAlertRecord> {
+    const newAlert: MaintenanceAlertRecord = {
+      id: this.maintenanceAlerts.length + 1,
+      station_id: payload?.station_id || 1,
+      sensor_type: payload?.sensor_type || "RTD Temperature Probe",
+      severity: payload?.severity || "CRITICAL",
+      title: payload?.title || "Simulated Diagnostic Alert",
+      recommendation: payload?.recommendation || "Recalibrate ADC terminal grounding and inspect transducer harness.",
+      status: "ACTIVE",
+      created_at: new Date().toISOString()
+    };
+    this.maintenanceAlerts.unshift(newAlert);
+    return newAlert;
+  }
+
   public async getConsensusOverview(): Promise<any> {
+    const safe = this.correctedRecords.filter(r => r.status === 'SAFE_ESTIMATE').length;
+    const review = this.correctedRecords.filter(r => r.status !== 'SAFE_ESTIMATE').length;
+    const total = this.correctedRecords.length || 1420;
+
     return {
-      consensus_threshold_percent: 85.0,
-      total_evaluations: 1420,
-      auto_corrected_count: 38,
-      human_review_required_count: 2,
+      total_estimations: total,
+      safe_auto_estimates: safe || 38,
+      human_review_required: review || 2,
+      total_evaluations: total,
+      auto_corrected_count: safe || 38,
+      human_review_required_count: review || 2,
       average_agreement_percent: 94.8,
+      consensus_threshold_percent: 85.0,
       model_weights: {
         temporal_lag: 0.40,
         diurnal_baseline: 0.30,
@@ -781,16 +837,41 @@ class TelemetryEngine {
   }
 
   public async getAnomalyExplanation(anomalyId: number): Promise<any> {
+    const anom = this.anomalies.find(a => a.id === anomalyId) || this.anomalies[0];
+    const cause = anom ? anom.probable_cause : "Transient RTD Sensor Spike";
+    const confidence = anom ? anom.confidence : 96.2;
+
+    const simple = `⚠️ This reading was flagged because the sensor recorded an abrupt jump (+44.0°C) within a single minute, while regional barometric pressure and humidity remained steady (${confidence}% diagnostic confidence of RTD transducer glitch).`;
+    const operator = `Diagnosed Cause: ${cause} (Confidence: ${confidence}%) | Evidence: Instantaneous thermal shift +44.0°C/step; Pressure steady (-0.2 hPa); RH steady (+0.5%) | Fingerprint Match: FP-TEMP-SPIKE-01 (94.2% match)`;
+    const telemetry = {
+      qc_flags: ["RATE_OF_CHANGE_EXCEEDED", "ISOLATION_FOREST_OUTLIER"],
+      modified_z_scores: { temperature: 4.8, pressure: 0.2, humidity: 0.5 },
+      raw_decision_score: -0.22,
+      temporal_roc_c_per_min: 44.0,
+      consensus_agreement_percent: 96.2,
+      raw_ingested_preserved: 75.2,
+      safe_consensus_recovered: 31.2
+    };
+    const attribution = [
+      { feature: "Temperature Rate-of-Change (ROC)", importance_percent: 42.0, impact: "POSITIVE" },
+      { feature: "Multivariate Thermodynamic Decoupling", importance_percent: 28.0, impact: "POSITIVE" },
+      { feature: "Modified Z-Score Statistical Fence", importance_percent: 20.0, impact: "POSITIVE" },
+      { feature: "RTD Transducer Historical Drift", importance_percent: 10.0, impact: "NEUTRAL" }
+    ];
+
     return {
       anomaly_id: anomalyId,
-      explanation_title: "Explainable AI (XAI) Diagnosis",
-      summary: "Observation flagged due to sudden uncoupled thermal surge exceeding 3.5 Modified Z-score standard deviations without corresponding thermodynamic shifts.",
-      contributing_factors: [
-        { factor: "Rate of Change (ROC)", impact_percent: 42.0, description: "Instantaneous thermal shift +44.0°C/step" },
-        { factor: "Multivariate Decoupling", impact_percent: 28.0, description: "Barometric pressure static (-0.2 hPa); Relative Humidity static (+0.5%)" },
-        { factor: "Modified Z-Score", impact_percent: 20.0, description: "Deviation score 4.8 exceeds WMO critical threshold 3.0" },
-        { factor: "Sensor Health History", impact_percent: 10.0, description: "PT100 RTD probe historical drift index 0.02" }
-      ],
+      explanation_title: "Explainable AI (XAI) Multi-Tier Narrative",
+      simple_explanation: simple,
+      operator_summary: operator,
+      researcher_telemetry: telemetry,
+      feature_attribution: attribution,
+      explanations: {
+        simple_explanation: simple,
+        operator_summary: operator,
+        researcher_telemetry: telemetry,
+        feature_attribution: attribution
+      },
       matched_fingerprint: {
         code: "FP-TEMP-SPIKE-01",
         name: "Temperature Sensor Transient Spike",
@@ -811,39 +892,64 @@ class TelemetryEngine {
   public async getSimulationScenarios(): Promise<any[]> {
     return [
       {
+        id: "TEMP_SPIKE",
+        name: "Temperature Sensor Spike (+45°C Jump)",
         scenario_type: "TEMP_SPIKE",
         title: "Transient Thermal Spike",
         description: "Simulate electrical impulse surge on PT100 temperature sensor (+44°C).",
         default_parameter: "temperature",
-        default_magnitude: 44.0
+        parameter: "temperature",
+        default_magnitude: 44.0,
+        magnitude: 44.0,
+        expected_outcome: "Trigger UNDER_VERIFICATION, low trust score (~38), match FP-TEMP-SPIKE-01, tri-model consensus auto-recovery."
       },
       {
+        id: "SENSOR_DRIFT",
+        name: "Progressive Temperature Calibration Drift (+6.5°C)",
         scenario_type: "SENSOR_DRIFT",
         title: "Gradual Calibration Drift",
         description: "Simulate gradual sensor decalibration from solar radiation shield degradation.",
         default_parameter: "temperature",
-        default_magnitude: 6.5
+        parameter: "temperature",
+        default_magnitude: 6.5,
+        magnitude: 6.5,
+        expected_outcome: "Statistical Modified-Z divergence, gradual trust decline, maintenance work order generation."
       },
       {
+        id: "FROZEN_SENSOR",
+        name: "Frozen Sensor / Firmware Bus Lockup (0 Variance)",
         scenario_type: "FROZEN_SENSOR",
         title: "Frozen Sensor / Bus Lockup",
         description: "Simulate stuck repeated float reading across multiple acquisition intervals.",
         default_parameter: "temperature",
-        default_magnitude: 0.0
+        parameter: "temperature",
+        default_magnitude: 0.0,
+        magnitude: 0.0,
+        expected_outcome: "QC flatline check trip, sensor health score drop, maintenance recommendation."
       },
       {
+        id: "PRESSURE_SURGE",
+        name: "Barometric Transducer Jolt (-25 hPa)",
         scenario_type: "PRESSURE_SURGE",
         title: "Barometric Transducer Jolt",
         description: "Simulate sudden barometric pressure drop or transducer surge (-25 hPa).",
         default_parameter: "pressure",
-        default_magnitude: -25.0
+        parameter: "pressure",
+        default_magnitude: -25.0,
+        magnitude: -25.0,
+        expected_outcome: "Pressure gradient alert, squall vs sensor decoupling check, verified observation preserved."
       },
       {
+        id: "HUMIDITY_SAT",
+        name: "Hygrometer Condensation Saturation (100% RH)",
         scenario_type: "HUMIDITY_SAT",
         title: "Hygrometer Condensation Saturation",
         description: "Simulate waterlogged relative humidity sensor pinned at 100%.",
         default_parameter: "humidity",
-        default_magnitude: 40.0
+        parameter: "humidity",
+        default_magnitude: 40.0,
+        magnitude: 40.0,
+        expected_outcome: "Dew-point physical boundary violation, sensor hygiene flag, auto-recovery estimate generated."
       }
     ];
   }
@@ -860,9 +966,9 @@ class TelemetryEngine {
     const mag = payload.magnitude ?? 40.0;
 
     let originalVal = card.temperature ?? 30.0;
-    if (param === "temperature") card.temperature = (card.temperature ?? 30.0) + mag;
-    else if (param === "pressure") card.pressure = (card.pressure ?? 1010.0) + mag;
-    else if (param === "humidity") card.humidity = Math.min(100, Math.max(0, (card.humidity ?? 60.0) + mag));
+    if (param === "temperature") card.temperature = Number(((card.temperature ?? 30.0) + mag).toFixed(1));
+    else if (param === "pressure") card.pressure = Number(((card.pressure ?? 1010.0) + mag).toFixed(1));
+    else if (param === "humidity") card.humidity = Math.min(100, Math.max(0, Number(((card.humidity ?? 60.0) + mag).toFixed(1))));
 
     card.anomaly_status = "UNDER_VERIFICATION";
     card.anomaly_severity = "CRITICAL";
@@ -901,8 +1007,8 @@ class TelemetryEngine {
       original_value: card.temperature,
       corrected_value: originalVal,
       model_temporal_estimate: originalVal,
-      model_historical_estimate: originalVal - 0.2,
-      model_multivariate_estimate: originalVal + 0.1,
+      model_historical_estimate: Number((originalVal - 0.2).toFixed(1)),
+      model_multivariate_estimate: Number((originalVal + 0.1).toFixed(1)),
       model_agreement_percent: 96.4,
       is_auto_corrected: true,
       status: "SAFE_ESTIMATE",
@@ -924,10 +1030,31 @@ class TelemetryEngine {
       timestamp: new Date().toISOString()
     });
 
+    const pipeline_output = {
+      station_name: card.station_name,
+      temperature: card.temperature,
+      pressure: card.pressure,
+      humidity: card.humidity,
+      root_cause: `Simulated Fault: ${payload.scenario_type}`,
+      severity: "CRITICAL",
+      anomaly_status: "UNDER_VERIFICATION",
+      diagnosis_confidence: 96.0,
+      trust_score: 38.5,
+      self_healing: {
+        temperature: {
+          original_value: card.temperature,
+          corrected_value: originalVal,
+          agreement_percent: 96.4,
+          reason: "Tri-model consensus achieved (96.4% agreement). Raw observation stored immutably in ledger."
+        }
+      }
+    };
+
     return {
       status: "success",
       message: `Simulation ${payload.scenario_type} injected into ${card.station_name}`,
       anomaly_id: newAnomalyId,
+      pipeline_output,
       card
     };
   }

@@ -21,6 +21,7 @@ const API_BASE_URL = getApiBaseUrl();
 class ApiService {
   private backendAvailable: boolean | null = null;
   private lastHealthCheckTime: number = 0;
+  private pendingHealthCheck: Promise<boolean> | null = null;
 
   private getHeaders(): HeadersInit {
     const token = localStorage.getItem("skyguard_token");
@@ -38,22 +39,32 @@ class ApiService {
       return this.backendAvailable;
     }
 
-    try {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 1200);
-      const res = await fetch(`${API_BASE_URL}/dashboard/summary`, {
-        headers: this.getHeaders(),
-        signal: controller.signal
-      });
-      clearTimeout(timeout);
-      this.backendAvailable = res.ok;
-      this.lastHealthCheckTime = now;
-      return this.backendAvailable;
-    } catch {
-      this.backendAvailable = false;
-      this.lastHealthCheckTime = now;
-      return false;
+    if (this.pendingHealthCheck) {
+      return this.pendingHealthCheck;
     }
+
+    this.pendingHealthCheck = (async () => {
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 600);
+        const res = await fetch(`${API_BASE_URL}/dashboard/summary`, {
+          headers: this.getHeaders(),
+          signal: controller.signal
+        });
+        clearTimeout(timeout);
+        this.backendAvailable = res.ok;
+        this.lastHealthCheckTime = Date.now();
+        return this.backendAvailable;
+      } catch {
+        this.backendAvailable = false;
+        this.lastHealthCheckTime = Date.now();
+        return false;
+      } finally {
+        this.pendingHealthCheck = null;
+      }
+    })();
+
+    return this.pendingHealthCheck;
   }
 
   async get<T>(endpoint: string, timeoutMs: number = 2500): Promise<T> {
@@ -262,6 +273,10 @@ class ApiService {
       console.warn(`Backend /alerts/${id}/resolve unreachable:`, err);
     }
     return telemetryEngine.resolveAlert(id);
+  }
+
+  async createTestAlert(payload?: any) {
+    return telemetryEngine.createTestAlert(payload);
   }
 
   // --- Consensus Self-Healing ---
